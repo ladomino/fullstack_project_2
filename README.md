@@ -32,9 +32,9 @@ based on their dietary preferences.  Users can save recipes they have tried, rat
  -As a user, I want to be able to remove any recipes I did not like.
 
 #APIs
-[link](https://developer.edamam.com/edamam-docs-recipe-api)
-[link](https://world.openfoodfacts.org/data)
-[link](https://getbootstrap.com/)
+[Edamam](https://developer.edamam.com/edamam-docs-recipe-api)
+[OpenFood](https://world.openfoodfacts.org/data)
+[Bootstrap](https://getbootstrap.com/)
 
 # Wire Frames
 
@@ -45,12 +45,12 @@ based on their dietary preferences.  Users can save recipes they have tried, rat
 ![Search](assets/search.png)
 
 ## RecipesMe
-![RecipesMe](assets.recipesMe.png)
+![RecipesMe](assets/recipesMe.png)
 
 ## Recipe
-![Recipes](recipe.png)
+![Recipes](assets/recipe.png)
 
 ## ProductsMe
-![ProductsMe](productsMe.png)
+![ProductsMe](assets/productsMe.png)
 
 # ERD

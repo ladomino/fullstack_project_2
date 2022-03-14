@@ -18,18 +18,18 @@ based on their dietary preferences.  Users can save recipes they have tried, rat
 -Delete your recommendations
 
 # Stretch Goals
-Allowing Users to add more specific nuturitional information or calorie searching
-Allowing Users to add Progress fitness/weight tracking to their profile
-Allowing Users to have a User Blog to track general notes for themselves.
+- Allowing Users to add more specific nuturitional information or calorie searching
+- Allowing Users to add Progress fitness/weight tracking to their profile
+- Allowing Users to have a User Blog to track general notes for themselves.
 
 # User Stories
-As a user, I want to be able to create a personalized account.
-As a user, I want to be able to track in my personalized account specific recipes according to my dietary preferences.
-As a user, I want to be able to track and save specific products and ingredients.
-As a user, I want to know which recipes I have tried and liked.
-As a user, I want to save and comment on recipes that I have tried
-As a user, I want to be able to see other users' comments of recipes
-As a user, I want to be able to remove any recipes I did not like.
+- As a user, I want to be able to create a personalized account.
+- As a user, I want to be able to track in my personalized account specific recipes according to my dietary preferences.
+- As a user, I want to be able to track and save specific products and ingredients.
+- As a user, I want to know which recipes I have tried and liked.
+- As a user, I want to save and comment on recipes that I have tried
+- As a user, I want to be able to see other users' comments of recipes
+ -As a user, I want to be able to remove any recipes I did not like.
 
 #APIs
 [link](https://developer.edamam.com/edamam-docs-recipe-api)
@@ -38,19 +38,19 @@ As a user, I want to be able to remove any recipes I did not like.
 
 # Wire Frames
 
-Home
+## Home
 ![Home](assets/home.png)
 
-Search
+## Search
 ![Search](assets/search.png)
 
-RecipesMe
+## RecipesMe
 ![RecipesMe](assets.recipesMe.png)
 
-Recipe
+## Recipe
 ![Recipes](recipe.png)
 
-ProductsMe
+## ProductsMe
 ![ProductsMe](productsMe.png)
 
 # ERD

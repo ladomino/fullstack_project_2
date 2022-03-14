@@ -54,3 +54,4 @@ based on their dietary preferences.  Users can save recipes they have tried, rat
 ![ProductsMe](assets/productsMe.png)
 
 # ERD
+![ERD](assets/FullStack-Project2.jpg)

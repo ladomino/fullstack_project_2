@@ -1,0 +1,27 @@
+{% layout 'layout.liquid'%}
+{% block content %}
+<div>
+    <h2 class="display-6">All recipes</h2>
+    <div class="row">
+        {% for recipe in recipes %}
+        <div class="card" style="width: 18rem;">
+            <h5 class="card-header">{{ recipe.title }}</h5>
+            <div class="card-body">
+                <h5 class="card-title">
+                    Ready?: {{ recipe.ready }}
+                </h5>
+                <p class="card-text">
+                    Body: {{ recipe.body }}
+                </p>
+                <p class="card-text">
+                    Amount: {{ recipe.amount }}
+                </p>
+                <a href="/recipes/{{ recipe.id }}" class="btn btn-info">
+                    View {{ recipe.title }}
+                </a>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,43 @@
+{% layout 'layout.liquid' %}
+{% block content %}
+<div class="container-sm">
+    <form action="/recipes" method="POST">
+        <fieldset>
+            <legend>Create New recipe</legend>
+            <label class="form-label">Title: </label>
+            <input 
+                type="text" 
+                name="title" 
+                placeholder="{{ recipe.title }}"
+                value="{{ recipe.title }}"
+                class="form-control"
+            >
+            <label class="form-label">Body:</label>
+            <input 
+                type="text" 
+                name="body" 
+                placeholder="{{ recipe.body }}" 
+                value="{{ recipe.body }}" 
+                class="form-control"
+            >
+            <label class="form-label">Amount:</label>
+            <input 
+                type="number" 
+                name="amount"
+                value="{{ recipe.amount }}"
+                class="form-control"
+            >
+            <label class="form-label">Ready:</label>
+            <input 
+                type="checkbox" 
+                name="ready" 
+                class="form-check-input"
+                {% if recipe.ready %}
+                    checked
+                {% endif %}
+            >
+        </fieldset>
+        <input type="submit" value="Edit recipe" class="btn btn-success">
+    </form>
+</div>
+{% endblock %}

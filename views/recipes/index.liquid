@@ -1,27 +1,48 @@
 {% layout 'layout.liquid'%}
 {% block content %}
-<div>
-    <h2 class="display-6">All recipes</h2>
-    <div class="row">
-        {% for recipe in recipes %}
-        <div class="card" style="width: 18rem;">
-            <h5 class="card-header">{{ recipe.title }}</h5>
-            <div class="card-body">
-                <h5 class="card-title">
-                    Ready?: {{ recipe.ready }}
-                </h5>
-                <p class="card-text">
-                    Body: {{ recipe.body }}
-                </p>
-                <p class="card-text">
-                    Amount: {{ recipe.amount }}
-                </p>
-                <a href="/recipes/{{ recipe.id }}" class="btn btn-info">
-                    View {{ recipe.title }}
-                </a>
+<div class="container-lg">
+    <div class="flex-container align-middle toggle-filters">
+        <div class="input-group justify-content-between">
+            
+            <form id="form" class="search-form flex-container
+                align-middle" action="/recipes">
+                <div class="input-group">
+                    <input type="text" id="q" class="form-control rounded" 
+                    name="q" placeholder="Enter Recipe Keyword" 
+                    aria-label="Search" aria-describedby="search-addon" />
+
+                    <input type="submit"  
+                    class="btn btn-outline-primary" value="Search" />
+                </div>
+            </form>
+            <div class="filters">
+                <a class="btn btn-outline-primary" href="">MyRecipes</a>
+                <a class="btn btn-outline-primary" href="">MyArticles</a>
             </div>
         </div>
+    </div>   
+
+<!-- Recipes -->
+    <div class="recipe_list_container">
+        {% for item in recipes %}
+            <div class="recipe_container">
+              <img class="recipe_image" src="{{item.recipe.image}}" alt="">
+                <a href="#!"><i class="far fa-heart"></i></a>               
+                <div class="recipe_info">
+                    <div class="recipe_type">
+                        <b>Comments</b>
+                    </div>
+                    <div class="recipe_type">
+                        <button class="btn" type="button" id="plus">
+                            <i class="icon-plus-sign">+</i>
+                          </button>
+                        MyRecipes
+                    </div>
+                </div>
+                <div class="recipe_name">{{item.recipe.label}}</div>
+            </div>
         {% endfor %}
     </div>
 </div>
+
 {% endblock %}

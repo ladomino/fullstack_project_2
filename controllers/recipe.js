@@ -58,11 +58,16 @@ router.get("/", (req, res) => {
 	console.log("API_ID: ", apiId)
 	console.log("API_KEY: ", apiKey)
 
+	const username = req.session.username
+	const loggedIn = req.session.loggedIn
+	const userId = req.session.userId
+
 	// limiting number of ingredients
 	// &ingr=${maxIngr}&to=50
-	const requestUrl = `https://api.edamam.com/search?q=&${searchQ}&app_id=${apiId}&app_key=${apiKey}`
+	const requestUrl = `https://api.edamam.com/search?q=${searchQ}&app_id=${apiId}&app_key=${apiKey}`
 
-	console.log("RequestUrl: ", requestUrl)
+
+	console.log("Search RequestUrl: ", requestUrl)
 
 	// Submit the request to retrieve the data
 	// Fetch requires node-fetch and special import
@@ -71,14 +76,15 @@ router.get("/", (req, res) => {
 		  return responseData.json();
 	  })
 	  .then((jsonData)=>{
-		  console.log(jsonData)
-		  
-		  res.send(jsonData);
+		 
+		  const recipeList = jsonData.hits;
 		  
 		  // Render the new display page and pass in the data needed 
 		  //  to display
 		//   res.render("./weather/show.liquid", { city: city, cityTemp: cityTemp,
 		// 	  description: cityDescription, minTemp: minTemp, maxTemp: maxTemp});
+
+		res.render('index.liquid', { recipes: recipeList, loggedIn, username, userId })
 	  })
 	  .catch((error)=>{
 		  // If any error is sent bac, you will have access to it here.

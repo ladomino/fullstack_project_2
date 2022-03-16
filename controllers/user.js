@@ -61,7 +61,6 @@ router.post('/login', async (req, res) => {
 				if (result) {
 					console.log('the user', user);
 
-          			//const { username, loggedIn, userId } = req.session
 					req.session.username = username;
 					req.session.loggedIn = true;
 					req.session.userId = user.id;  

@@ -10,15 +10,9 @@ const { Schema, model } = mongoose
 // Still being modified
 const recipeSchema = new Schema(
 	{
-		name: { type: String},
-		title: { type: String, required: true },
-        body: { type: String, required: true },
-		img: {type: String},
-		ingredients: { type: String},
-		dietLabels: {type: String},
-		healthLabels: {type: String},
-        servings: { type: Number},
-		ready: { type: Boolean, required: true},
+		apiId: {type: String, required: true},
+		name: { type: String, required: true},
+		img: {type: String, required: true},
 		owner: {
 			type: Schema.Types.ObjectID,
 			ref: 'User',

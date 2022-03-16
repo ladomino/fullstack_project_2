@@ -1,6 +1,13 @@
 // Import Dependencies
+require("dotenv").config(); // Load ENV Variables
 const express = require('express')
 const Recipe = require('../models/recipe')
+
+// Setup for Recipe retrieval through API
+const apiId = process.env.EDAMAM_API_ID
+const apiKey = process.env.EDAMAM_API_KEY
+
+const fetch = (url) => import('node-fetch').then(({default: fetch}) => fetch(url));
 
 // Create router
 const router = express.Router()
@@ -22,18 +29,65 @@ router.use((req, res, next) => {
 // Routes
 
 // index ALL
-router.get('/', (req, res) => {
-	Recipe.find({})
-		.then(recipes => {
-			const username = req.session.username
-			const loggedIn = req.session.loggedIn
+// router.get('/', (req, res) => {
+// 	Recipe.find({})
+// 		.then(recipes => {
+// 			const username = req.session.username
+// 			const loggedIn = req.session.loggedIn
+
+// 			const searchQ = req.query.q; 
+// 			const reqUrl = `https://api.edamam.com/search?q=${search}&app_id=${apiId}&app_key=${apiKey}&ingr=${maxIngr}&to=50`
 			
-			res.render('recipes/index', { recipes, username, loggedIn })
-		})
-		.catch(error => {
-			res.redirect(`/error?error=${error}`)
-		})
-})
+// 			res.send();
+// 			res.render('recipes/index', { recipes, username, loggedIn })
+// 		})
+// 		.catch(error => {
+// 			res.redirect(`/error?error=${error}`)
+// 		})
+// })
+
+
+// Called from Search to retrieve the recipes based on search keywords
+router.get("/", (req, res) => {
+
+	console.log("In get search route")
+	
+	// Setup the requestUrl for recipes  
+	const searchQ = req.query.q; 
+	console.log("Search key: ", searchQ);
+	console.log("API_ID: ", apiId)
+	console.log("API_KEY: ", apiKey)
+
+	// limiting number of ingredients
+	// &ingr=${maxIngr}&to=50
+	const requestUrl = `https://api.edamam.com/search?q=&${searchQ}&app_id=${apiId}&app_key=${apiKey}`
+
+	console.log("RequestUrl: ", requestUrl)
+
+	// Submit the request to retrieve the data
+	// Fetch requires node-fetch and special import
+	fetch(requestUrl)
+	  .then((responseData)=>{
+		  return responseData.json();
+	  })
+	  .then((jsonData)=>{
+		  console.log(jsonData)
+		  
+		  res.send(jsonData);
+		  
+		  // Render the new display page and pass in the data needed 
+		  //  to display
+		//   res.render("./weather/show.liquid", { city: city, cityTemp: cityTemp,
+		// 	  description: cityDescription, minTemp: minTemp, maxTemp: maxTemp});
+	  })
+	  .catch((error)=>{
+		  // If any error is sent bac, you will have access to it here.
+		  console.log(error);
+		  res.json({ error })
+	  });
+  });
+
+
 
 // index that shows only the user's recipes
 router.get('/mine', (req, res) => {

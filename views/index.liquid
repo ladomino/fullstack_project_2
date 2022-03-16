@@ -1,7 +1,46 @@
 {% layout "layout.liquid" %}
 {% block content %}
+<!-- Search -->
+<div class="container-lg">
+    <div class="flex-container align-middle toggle-filters">
+        <div class="input-group justify-content-between">
+            
+            <form id="form" class="search-form flex-container
+                align-middle" action="/recipes">
+                <div class="input-group">
+                    <input type="text" id="q" class="form-control rounded" 
+                    name="q" placeholder="Enter Recipe Keyword" 
+                    aria-label="Search" aria-describedby="search-addon" />
 
-    <h1>Welcome!</h1>
+                    <input type="submit"  
+                    class="btn btn-outline-primary" value="Search" />
+                </div>
+            </form>
+            <div class="filters">
+                <a class="btn btn-outline-primary" href="">MyRecipes</a>
+                <a class="btn btn-outline-primary" href="">MyArticles</a>
+            </div>
+        </div>
+    </div>   
 
+<!-- Recipes -->
+    <div class="recipe_list_container">
+        {% for item in recipes %}
+            <div class="recipe_container">
+              <img class="recipe_image" src="{{item.recipe.image}}" alt="">
+                <a href="#!"><i class="far fa-heart"></i></a>               
+                <div class="recipe_info">
+                    <div class="recipe_type">
+                        <b>Comments</b>
+                    </div>
+                    <div class="recipe_type">
+                        Adding
+                    </div>
+                </div>
+                <div class="recipe_name">{{item.recipe.label}}</div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
 
 {% endblock %}

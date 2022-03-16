@@ -26,8 +26,10 @@
     <div class="recipe_list_container">
         {% for item in recipes %}
             <div class="recipe_container">
-              <img class="recipe_image" src="{{item.recipe.image}}" alt="">
-                <a href="#!"><i class="far fa-heart"></i></a>               
+                {% assign recipeId = item.recipe.uri | split: "#recipe_" %}
+                <a href="recipes/{{recipeId[1]}}">  
+                    <img class="recipe_image" src="{{item.recipe.image}}" alt="{{item.recipe.label}}">
+                </a>                 
                 <div class="recipe_info">
                     <div class="recipe_type">
                         <b>Comments</b>

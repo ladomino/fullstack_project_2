@@ -1,27 +1,27 @@
 {% layout 'layout.liquid' %}
 {% block content %}
 
-<div class="recipe_list_container">
-    <h1 class="text-center text-uppercase"></h1>
-    <br>
-    <br>
-    <div class="recipe_container">
-        <img class="recipe_image" src="https://i.imgur.com/eFWRUuR.jpg" alt="">
-        <a href="#!"><i class="far fa-heart"></i></a>
-        <div class="recipe_name">Name</div>
-        <div class="recipe_info">
-            <div class="recipe_type">
-                <b>Comments</b>
+<div class="container-lg">       
+    <div class="recipe_list_container">
+        <div class="recipe_container">
+        <img class="recipe_image" src="{{recipe.image}}" alt="">
+            <a href="#!"><i class="far fa-heart"></i></a>               
+            <div class="recipe_info">
+                <div class="recipe_type">
+                    <b>Comments</b>
+                </div>
+                <div class="recipe_type">
+                    <button class="btn" type="button" id="plus">
+                        <i class="icon-plus-sign">+</i>
+                    </button>
+                    MyRecipes
+                </div>
             </div>
-            <div class="recipe_type">
-                Adding
-            </div>
-        </div>
-        <div class="recipe_info">
-            Title
+            <div class="recipe_name">{{recipe.label}}</div>
         </div>
     </div>
 </div>
-        
+
+
 
 {% endblock %}

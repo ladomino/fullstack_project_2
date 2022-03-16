@@ -158,15 +158,49 @@ router.put('/:id', (req, res) => {
 
 // show route
 router.get('/:id', (req, res) => {
-	const recipeId = req.params.id
-	Recipe.findById(recipeId)
-		.then(recipe => {
-            const {username, loggedIn, userId} = req.session
-			res.render('recipes/show', { recipe, username, loggedIn, userId })
-		})
-		.catch((error) => {
-			res.redirect(`/error?error=${error}`)
-		})
+	const apiRecipeId = req.params.id
+
+	// Need to retrieve the recipe by the API.
+	console.log("In show route")
+	
+	// Setup the requestUrl for recipes  
+	console.log("RecipeId: ", apiRecipeId)
+	console.log("API_ID: ", apiId)
+	console.log("API_KEY: ", apiKey)
+
+	const username = req.session.username
+	const loggedIn = req.session.loggedIn
+	const userId = req.session.userId
+
+
+	const requestUrl = `https://api.edamam.com/api/recipes/v2/${apiRecipeId}?type=public&app_id=${apiId}&app_key=${apiKey}`
+
+
+	console.log("Show Route requestUrl: ", requestUrl)
+
+	// Submit the request to retrieve the data
+	// Fetch requires node-fetch and special import
+	fetch(requestUrl)
+	  .then((responseData)=>{
+		  return responseData.json();
+	  })
+	  .then((jsonData)=>{
+		 
+		  const recipe = jsonData.recipe;
+		  console.log("Recipe:", recipe)
+
+		  // Render the new display page and pass in the data needed 
+		  //  to display
+		//   res.render("./weather/show.liquid", { city: city, cityTemp: cityTemp,
+		// 	  description: cityDescription, minTemp: minTemp, maxTemp: maxTemp});
+
+		res.render('recipes/show', { recipe, username, loggedIn, userId })
+	  })
+	  .catch((error)=>{
+		  // If any error is sent bac, you will have access to it here.
+		console.log(error);
+		res.redirect(`/error?error=${error}`)
+	})
 })
 
 // delete route

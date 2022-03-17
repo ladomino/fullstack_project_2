@@ -1,3 +1,7 @@
+body {
+  background-color: #A9DFBF
+}
+
 .toggle-filters {
     margin-top: 10px;
 }
@@ -23,6 +27,8 @@
   border-radius: 10px;
   box-shadow: 1px 4px 10px 0 #5e2104f7;
   zoom: 100%;
+  background-color: #f7f2f2;
+  /* background-color: white; */
 }
 
 .recipe_show_container {
@@ -34,6 +40,7 @@
     border-radius: 10px;
     box-shadow: 1px 4px 10px 0 #5e2104f7;
     zoom: 100%;
+    background-color: #f7f2f2;
   }
 
 .recipe_image {

@@ -118,14 +118,14 @@ router.post('/:id', (req, res) => {
 	
 	req.body.owner = req.session.userId
 
-	//testing - res.send(req.body)
+	//res.send(req.body)
 	Recipe.create(req.body)
 		.then(recipe => {
 			console.log('this was returned from create', recipe)
-	  		res.redirect(`/recipes?q=${searchQuery.q}`)
-		})
-		.catch(error => {
-			res.redirect(`/error?error=${error}`)
+	   		res.redirect(`/recipes?q=${searchQuery.q}`)
+	 	})
+	 	.catch(error => {
+	 		res.redirect(`/error?error=${error}`)
 	})
 })
 

@@ -13,10 +13,12 @@ const { Schema, model } = mongoose
 // Still being modified
 const recipeSchema = new Schema(
 	{
-		apiId: {type: String, required: true},
-		name: { type: String, required: true},
-		img: {type: String, required: true},
-		// Subdocument array
+		recipe: {
+			uri: {type: String, required: true},
+			label: { type: String, required: true},
+			image: {type: String, required: true},
+		},
+			// Subdocument array
 		comments: [commentSchema],
 		// Track for MyRecipes
 		owner: {

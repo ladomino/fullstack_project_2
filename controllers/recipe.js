@@ -115,18 +115,22 @@ router.get('/new', (req, res) => {
 })
 
 // create -> POST route that actually calls the db and makes a new document
-router.post('/', (req, res) => {
-	req.body.ready = req.body.ready === 'on' ? true : false
+router.post('/:id', (req, res) => {
+	//req.body.ready = req.body.ready === 'on' ? true : false
+	const recipeId = req.params.id
 
+	console.log("Body:", req.body)
+	
 	req.body.owner = req.session.userId
-	Recipe.create(req.body)
-		.then(recipe => {
-			console.log('this was returned from create', recipe)
-			res.redirect('/recipes')
-		})
-		.catch(error => {
-			res.redirect(`/error?error=${error}`)
-		})
+	res.send(req.body)
+	// Recipe.create(req.body)
+	// 	.then(recipe => {
+	//  		console.log('this was returned from create', recipe)
+	//  		res.redirect('/recipes')
+	// 	})
+	// 	.catch(error => {
+	//  		res.redirect(`/error?error=${error}`)
+	// })
 })
 
 // edit route -> GET that takes us to the edit form view
@@ -147,16 +151,17 @@ router.put('/:id', (req, res) => {
 	const recipeId = req.params.id
 	req.body.ready = req.body.ready === 'on' ? true : false
 
-	Recipe.findByIdAndUpdate(recipeId, req.body, { new: true })
-		.then(recipe => {
-			res.redirect(`/recipes/${recipe.id}`)
-		})
-		.catch((error) => {
-			res.redirect(`/error?error=${error}`)
-		})
+	// Recipe.findByIdAndUpdate(recipeId, req.body, { new: true })
+	// 	.then(recipe => {
+	// 		res.redirect(`/recipes/${recipe.id}`)
+	// 	})
+	// 	.catch((error) => {
+	// 		res.redirect(`/error?error=${error}`)
+	// 	})
 })
 
-// show route
+// show route - when user clicks on an image - it takes us to
+//   the display to show the recipe
 router.get('/:id', (req, res) => {
 	const apiRecipeId = req.params.id
 

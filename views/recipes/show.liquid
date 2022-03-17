@@ -3,7 +3,7 @@
 
 <div class="container-lg">       
     <div class="recipe_list_container">
-        <div class="recipe_container">
+        <div class="recipe_show_container">
         <img class="recipe_image" src="{{recipe.image}}" alt="">
             <a href="#!"><i class="far fa-heart"></i></a>               
             <div class="recipe_info">
@@ -11,13 +11,25 @@
                     <b>Comments</b>
                 </div>
                 <div class="recipe_type">
-                    <button class="btn" type="button" id="plus">
-                        <i class="icon-plus-sign">+</i>
-                    </button>
+                    <form class="form_display" action="/recipes/{{recipeId[1]}}" method="POST"> 
+                        <input type="submit" class="btn" id="btn_plus" value="+"> 
+                        <input type="hidden" name="apiId" value="{{recipe.uri}}">
+                        <input type="hidden" name="name" value="{{recipe.label}}">
+                        <input type="hidden" name="img" value="{{recipe.image}}">          
+                    </form>
                     MyRecipes
                 </div>
             </div>
             <div class="recipe_name">{{recipe.label}}</div>
+            <div class="recipe-ingredients">
+                <h5>Ingredients</h5>
+                <ul>
+                {% for line in recipe.ingredientLines %}
+                    <li>{{line}}</li>
+                {% endfor %}
+                </ul>
+                <p>Makes {{recipe.yield}} servings</p>
+            </div>
         </div>
     </div>
 </div>

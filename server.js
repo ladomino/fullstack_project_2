@@ -3,10 +3,14 @@
 ////////////////////
 require("dotenv").config() // make env variables available
 const express = require("express")
+
 const middleware = require('./utils/middleware')
 const RecipeRouter = require('./controllers/recipe')
 const UserRouter = require('./controllers/user')
-const User = require("./models/user")
+const CommentRouter = require('./controllers/comment')
+
+// const User = require("./models/user")
+
 // SEE MORE DEPENDENCIES IN ./utils/middleware.js
 // user and resource routes linked in ./utils/middleware.js
 
@@ -31,6 +35,7 @@ middleware(app)
 
 app.use('/auth', UserRouter)
 app.use('/recipes', RecipeRouter)
+app.use('/comment', CommentRouter)
 
 app.get('/', (req, res) => {
 	console.log("Main route")

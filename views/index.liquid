@@ -28,17 +28,20 @@
         {% for item in recipes %}
             <div class="recipe_container">
                 {% assign recipeId = item.recipe.uri | split: "#recipe_" %}
-                <a href="recipes/{{recipeId[1]}}">  
-                    <img class="recipe_image" src="{{item.recipe.image}}" alt="{{item.recipe.label}}">
+                <a href="/recipes/{{recipeId[1]}}">  
+                    <img class="recipe_image" name="img" src="{{item.recipe.image}}" alt="{{item.recipe.label}}">
                 </a>               
                 <div class="recipe_info">
                     <div class="recipe_type">
                         <b>Comments</b>
                     </div>
                     <div class="recipe_type">
-                        <button class="btn" type="button" id="plus">
-                            <i class="icon-plus-sign">+</i>
-                          </button>
+                        <form class="form_display" action="/recipes/{{recipeId[1]}}" method="POST"> 
+                            <input type="submit" class="btn" id="btn_plus" value="+"> 
+                            <input type="hidden" name="apiId" value="{{item.recipe.uri}}">
+                            <input type="hidden" name="name" value="{{item.recipe.label}}">
+                            <input type="hidden" name="img" value="{{item.recipe.image}}">          
+                        </form>
                         MyRecipes
                     </div>
                 </div>

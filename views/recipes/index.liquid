@@ -35,9 +35,12 @@
                         <b>Comments</b>
                     </div>
                     <div class="recipe_type">
-                        <button class="btn" type="button" id="plus">
-                            <i class="icon-plus-sign">+</i>
-                          </button>
+                        <form class="form_display" action="/recipes/{{recipeId[1]}}" method="POST"> 
+                            <input type="submit" class="btn" id="btn_plus" value="+"> 
+                            <input type="hidden" name="apiId" value="{{item.recipe.uri}}">
+                            <input type="hidden" name="name" value="{{item.recipe.label}}">
+                            <input type="hidden" name="img" value="{{item.recipe.image}}">          
+                        </form>
                         MyRecipes
                     </div>
                 </div>

@@ -14,7 +14,7 @@ body {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  padding: 30px;
+  padding: 20px;
   justify-content: space-evenly;
 }
 
@@ -23,7 +23,7 @@ body {
   flex-direction: column;
   margin: 5px;
   padding: 17px;
-  width: 255px;
+  width: 270px;
   border-radius: 10px;
   box-shadow: 1px 4px 10px 0 #5e2104f7;
   zoom: 100%;

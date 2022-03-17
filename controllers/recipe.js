@@ -26,28 +26,10 @@ router.use((req, res, next) => {
 	}
 })
 
-// Routes
-
-// index ALL
-// router.get('/', (req, res) => {
-// 	Recipe.find({})
-// 		.then(recipes => {
-// 			const username = req.session.username
-// 			const loggedIn = req.session.loggedIn
-
-// 			const searchQ = req.query.q; 
-// 			const reqUrl = `https://api.edamam.com/search?q=${search}&app_id=${apiId}&app_key=${apiKey}&ingr=${maxIngr}&to=50`
-			
-// 			res.send();
-// 			res.render('recipes/index', { recipes, username, loggedIn })
-// 		})
-// 		.catch(error => {
-// 			res.redirect(`/error?error=${error}`)
-// 		})
-// })
-
-
-// Called from Search to retrieve the recipes based on search keywords
+//////////////////////////////////////////////////////////////////////////////
+// Search Route - Retrieves the recipes based on the search query string
+//   Example ?q=keto
+/////////////////////////////////////////////////////////////////////////////
 router.get("/", (req, res) => {
 
 	console.log("In get search route")
@@ -84,7 +66,7 @@ router.get("/", (req, res) => {
 		//   res.render("./weather/show.liquid", { city: city, cityTemp: cityTemp,
 		// 	  description: cityDescription, minTemp: minTemp, maxTemp: maxTemp});
 
-		res.render('index.liquid', { recipes: recipeList, loggedIn, username, userId })
+		res.render('index.liquid', { recipes: recipeList, searchQ, loggedIn, username, userId })
 	  })
 	  .catch((error)=>{
 		  // If any error is sent bac, you will have access to it here.
@@ -94,14 +76,21 @@ router.get("/", (req, res) => {
   });
 
 
-
+////////////////////////////////////////////////////////////////////////////////
+// MyRecipes will display only those recipes for a user who is logged in.
+//
 // index that shows only the user's recipes
+////////////////////////////////////////////////////////////////////////////////
 router.get('/mine', (req, res) => {
     // destructure user info from req.session
     const { username, userId, loggedIn } = req.session
+
+	// preserve the query string
+	const searchQ = req.query.q;
+
 	Recipe.find({ owner: userId })
 		.then(recipes => {
-			res.render('recipes/index', { recipes, username, loggedIn })
+			res.render('recipes/index', { recipes, searchQ, username, loggedIn })
 		})
 		.catch(error => {
 			res.redirect(`/error?error=${error}`)
@@ -114,23 +103,30 @@ router.get('/new', (req, res) => {
 	res.render('recipes/new', { username, loggedIn })
 })
 
-// create -> POST route that actually calls the db and makes a new document
+///////////////////////////////////////////////////////////////////////////
+// Called when adding to Myrecipes.  It is specific to a recipe and to
+//   a query string as the query string must be preserved to display 
+//   properly after for display purposes.  A new recipe object is created
+//   for a specific owner.
+//////////////////////////////////////////////////////////////////////////
 router.post('/:id', (req, res) => {
-	//req.body.ready = req.body.ready === 'on' ? true : false
 	const recipeId = req.params.id
+	const searchQuery = req.query
 
-	console.log("Body:", req.body)
+	// console.log("Body:", req.body)
+	console.log("Query string q= ", searchQuery.q)
 	
 	req.body.owner = req.session.userId
-	res.send(req.body)
-	// Recipe.create(req.body)
-	// 	.then(recipe => {
-	//  		console.log('this was returned from create', recipe)
-	//  		res.redirect('/recipes')
-	// 	})
-	// 	.catch(error => {
-	//  		res.redirect(`/error?error=${error}`)
-	// })
+
+	//testing - res.send(req.body)
+	Recipe.create(req.body)
+		.then(recipe => {
+			console.log('this was returned from create', recipe)
+	  		res.redirect(`/recipes?q=${searchQuery.q}`)
+		})
+		.catch(error => {
+			res.redirect(`/error?error=${error}`)
+	})
 })
 
 // edit route -> GET that takes us to the edit form view
@@ -160,8 +156,11 @@ router.put('/:id', (req, res) => {
 	// 	})
 })
 
+////////////////////////////////////////////////////////////////
+// Show route for a specific recipe.
 // show route - when user clicks on an image - it takes us to
 //   the display to show the recipe
+////////////////////////////////////////////////////////////////
 router.get('/:id', (req, res) => {
 	const apiRecipeId = req.params.id
 
@@ -208,7 +207,9 @@ router.get('/:id', (req, res) => {
 	})
 })
 
+/////////////////////////////////////////////////////////////////
 // delete route
+/////////////////////////////////////////////////////////////////
 router.delete('/:id', (req, res) => {
 	const recipeId = req.params.id
 	Recipe.findByIdAndRemove(recipeId)

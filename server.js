@@ -63,7 +63,7 @@ app.get('/', (req, res) => {
 		//   res.render("./weather/show.liquid", { city: city, cityTemp: cityTemp,
 		// 	  description: cityDescription, minTemp: minTemp, maxTemp: maxTemp});
 
-		res.render('index.liquid', { recipes: recipeList, loggedIn, username, userId })
+		res.render('index.liquid', { recipes: recipeList, searchQ, loggedIn, username, userId })
 	  })
 	  .catch((error)=>{
 		  // If any error is sent bac, you will have access to it here.

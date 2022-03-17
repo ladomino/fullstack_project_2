@@ -90,7 +90,7 @@ router.get('/mine', (req, res) => {
 
 	Recipe.find({ owner: userId })
 		.then(recipes => {
-			res.render('recipes/index', { recipes, searchQ, username, loggedIn })
+			res.render('recipes/index', { recipes, searchQ, username, loggedIn, userId })
 		})
 		.catch(error => {
 			res.redirect(`/error?error=${error}`)

@@ -10,15 +10,24 @@
                 <div class="recipe_type">
                     <b>Comments</b>
                 </div>
-                <div class="recipe_type">
-                    <form class="form_display" action="/recipes/{{recipeId[1]}}" method="POST"> 
-                        <input type="submit" class="btn" id="btn_plus" value="+"> 
-                        <input type="hidden" name="apiId" value="{{recipe.uri}}">
-                        <input type="hidden" name="name" value="{{recipe.label}}">
-                        <input type="hidden" name="img" value="{{recipe.image}}">          
-                    </form>
+                <!-- <div class="recipe_type">
+                    {%if recipe.owner == userId %}
+                         <form class="form_display" action="/recipes/{{recipeId[1]}}?_method=DELETE" method="POST"> 
+                            <input type="submit" class="btn" id="btn_plus" value="-"> 
+                            <input type="hidden" name="recipe.uri" value="{{recipe.uri}}">
+                            <input type="hidden" name="recipe.label" value="{{recipe.label}}">
+                            <input type="hidden" name="recipe.image" value="{{recipe.image}}">          
+                        </form>
+                    {% else %}
+                        <form class="form_display" action="/recipes/{{recipeId[1]}}" method="POST"> 
+                            <input type="submit" class="btn" id="btn_plus" value="+"> 
+                            <input type="hidden" name="recipe.uri" value="{{recipe.uri}}">
+                            <input type="hidden" name="recipe.label" value="{{recipe.label}}">
+                            <input type="hidden" name="recipe.image" value="{{recipe.image}}">          
+                        </form>
+                    {%endif %}
                     MyRecipes
-                </div>
+                </div> -->
             </div>
             <div class="recipe_name">{{recipe.label}}</div>
             <div class="recipe-ingredients">

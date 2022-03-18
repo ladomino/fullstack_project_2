@@ -81,7 +81,15 @@ body {
 .recipe_comment {
   /* span */
 font-family: "Roboto", sans-serif;
-font-size: 18px;
+font-size: 16px;
+color: #7e0404;
+margin-bottom: 8px;
+}
+
+.recipe_comment_text {
+  /* span */
+font-family: "Roboto", sans-serif;
+font-size: 14px;
 color: #7e0404;
 }
 
@@ -122,6 +130,36 @@ color: #7e0404;
   border-top: solid;
   border-bottom: solid;
   align-items: center;
+}
+
+.recipe_button_info {
+  display: flex;
+  padding: 5px;
+  margin-top: 6px;
+  border-top: solid;
+  border-bottom: solid;
+  align-items: center;
+}
+
+.recipe_comment_info {
+  display: flex;
+  flex-direction: column;
+  padding: 8px;
+  margin-top: 6x;
+  border-top: solid;
+  border-bottom: solid;
+}
+
+.recipe_comment_title {
+  font-family: "Roboto", sans-serif;
+  font-size: 14px;
+  color: #7e0404;
+}
+
+.recipe_comment_body {
+  font-family: "Roboto", sans-serif;
+  font-size: 13px;
+  color: #7e0404;
 }
 
 #btn {

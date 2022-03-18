@@ -81,7 +81,7 @@ router.post('/:recipeId', (req, res) => {
 
              // this will need to be updated as we need to retrieve the recipe first
             // from the API before we can display it.
-            res.redirect(`/recipes/${recipe.id}`)
+            res.redirect(`/comment/${recipe.id}`)
         })
         // or show an error if we have one
         .catch(error => {

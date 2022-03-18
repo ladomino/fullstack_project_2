@@ -33,7 +33,7 @@
                 <div class="recipe_info">
                     <div class="recipe_type">
                         {%if item.owner == userId %}
-                            <form class="form_display" action="/comment/{{item_id}}" method="GET">
+                            <form class="form_display" action="/comment/{{item.id}}" method="GET">
                                 <input type="submit" class="btn" id="btn_plus" value="+">
                                 <input type="hidden" name="recipe.uri" value="{{item.recipe.uri}}">
                                 <input type="hidden" name="recipe.label" value="{{item.recipe.label}}">

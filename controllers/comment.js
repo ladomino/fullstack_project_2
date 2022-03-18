@@ -14,16 +14,60 @@ const router = express.Router()
 ////////////////////////////////////////////
 // Routes
 ////////////////////////////////////////////
-// only need two routes for comments right now
-// POST -> to create a comment
-router.post('/:recipeId', (req, res) => {
+
+//////////////////////////////////////////////
+// Route used for retrieving all the comments for a recipeId
+//////////////////////////////////////////////
+router.get('/:recipeId', (req, res) => {
     const recipeId = req.params.recipeId
+    console.log("Showing Comments: recipeId: ", recipeId)
     console.log('first comment body', req.body)
     
     // we'll adjust req.body to include an author
     // the author's id will be the logged in user's id
-    req.body.author = req.session.userId
-    console.log('updated comment body', req.body)
+    // req.body.author = req.session.userId
+    const username = req.session.username
+	const loggedIn = req.session.loggedIn
+	const userId = req.session.userId
+
+
+    // we'll find the recipe with the recipeId
+    Recipe.findById(recipeId)
+        .then(recipe => {
+        //     // then we'll send req.body to the comments array
+        //     recipe.comments.push(req.body)
+        //     // save the recipe
+        //     return recipe.save()
+        // })
+        // .then(recipe => {
+        //     // redirect
+
+             // this will need to be updated as we need to retrieve the recipe first
+            // from the API before we can display it.
+            // res.redirect(`/recipes/${recipe.id}`)
+            res.render('comment/index', {recipe, username, loggedIn, userId})
+        })
+        // or show an error if we have one
+        .catch(error => {
+            console.log(error)
+            res.send(error)
+        })
+})
+
+///////////////////////////////////////////////////////
+// Route to create a comment
+// POST -> to create a comment
+router.post('/:recipeId', (req, res) => {
+    const recipeId = req.params.recipeId
+    console.log('POST to create comment - first comment body', req.body)
+    
+    // we'll adjust req.body to include an author
+    // the author's id will be the logged in user's id
+    //req.body.author = req.session.userId
+    const username = req.session.username
+	const loggedIn = req.session.loggedIn
+	const userId = req.session.userId
+
     // we'll find the fruit with the fruitId
     Recipe.findById(recipeId)
         .then(recipe => {

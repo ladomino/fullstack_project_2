@@ -1,0 +1,47 @@
+
+{% layout 'layout.liquid'%}
+{% block content %}
+
+<div class="container-lg">
+    <div class="recipe_list_container">
+        <div class="recipe_container">
+            <img class="recipe_image" src="{{recipe.recipe.image}}" alt="">         
+            <div class="recipe_info">
+    
+                <!-- <div class="recipe_type">
+                    {%if recipe.owner == userId %}
+                         <form class="form_display" action="/recipes/{{recipeId[1]}}?_method=DELETE" method="POST"> 
+                            <input type="submit" class="btn" id="btn_plus" value="-"> 
+                            <input type="hidden" name="recipe.uri" value="{{recipe.uri}}">
+                            <input type="hidden" name="recipe.label" value="{{recipe.label}}">
+                            <input type="hidden" name="recipe.image" value="{{recipe.image}}">          
+                        </form>
+                    {% else %}
+                        <form class="form_display" action="/recipes/{{recipeId[1]}}" method="POST"> 
+                            <input type="submit" class="btn" id="btn_plus" value="+"> 
+                            <input type="hidden" name="recipe.uri" value="{{recipe.uri}}">
+                            <input type="hidden" name="recipe.label" value="{{recipe.label}}">
+                            <input type="hidden" name="recipe.image" value="{{recipe.image}}">          
+                        </form>
+                    {%endif %}
+                    MyRecipes
+                </div> -->
+            </div>
+            <div class="recipe_name">{{recipe.recipe.label}}</div>
+        </div>
+        <div class="recipe_comment_container">
+            <div class="recipe_comment">Add Comment</div>
+                <div class="recipe_comment">
+                    <form action="/comment/{{recipe.id}}" method="POST">
+                        <input type="text" class="form-control" id="recipe_form" name="title" placeholder="enter title for comment">                     
+                        <input type="text" class="form-control" id="recipe_form" name="body" placeholder="enter comment here...">                     
+                    </form>
+                    <input type="submit" class="btn"id="btn_plus" value="+">
+                    <b>Comment</b>
+              </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

@@ -90,6 +90,7 @@ router.post('/:recipeId', (req, res) => {
         })
 })
 
+//////////////////////////////////////////////////////////////
 // DELETE -> to destroy a comment
 // we'll use two params to make our life easier
 // first the id of the recipe, since we need to find it
@@ -103,14 +104,14 @@ router.delete('/delete/:recipeId/:commId', (req, res) => {
         .then(recipe => {
             const theComment = recipe.comments.id(commId)
             // only delete the comment if the user who is logged in is the comment's author
-            if ( theComment.author == req.session.userId) {
+            // if ( theComment.author == req.session.userId) {
                 // then we'll delete the comment
                 theComment.remove()
                 // return the saved recipe
                 return recipe.save()
-            } else {
-                return
-            }
+            // } else {
+            //     return
+            // }
 
         })
         .then(recipe => {
@@ -118,7 +119,7 @@ router.delete('/delete/:recipeId/:commId', (req, res) => {
 
             // this will need to be updated as we need to retrieve the recipe first
             // from the API before we can display it.
-            res.redirect(`/recipes/${recipeId}`)
+            res.redirect(`/comment/${recipeId}`)
         })
         .catch(error => {
             // catch any errors

@@ -10,10 +10,17 @@
             <div class="recipe_name">{{recipe.recipe.label}}</div>
         </div>
 
+       {% if recipe.comments.size != 0 %}
         <div class="recipe_comment_container">
             <div class="recipe_comment">Comments</div>
             {% for comment in recipe.comments %}
                 <div class="recipe_comment_info">
+                    <div class="recipe_comment_delete">
+                        <form class="form_display" action="/comment/delete/{{recipe.id}}/{{comment.id}}?_method=DELETE" method="POST"> 
+                            <input type="submit" class="btn" id="btn" value="- Delete"> 
+                        </form>
+                        <!-- <b>Delete</b> -->
+                    </div>
                     <div class="recipe_comment_title">
                     Title: {{comment.title}}
                     </div>
@@ -23,6 +30,7 @@
                 </div>
             {% endfor %}
         </div>
+        {% endif %}
 
         <div class="recipe_comment_container">
             <div class="recipe_comment">Add Comment</div>

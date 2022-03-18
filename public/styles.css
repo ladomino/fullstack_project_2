@@ -141,6 +141,15 @@ color: #7e0404;
   align-items: center;
 }
 
+.recipe_comment_delete {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+  font-size: 12px;
+
+}
+
 .recipe_comment_info {
   display: flex;
   flex-direction: column;
@@ -165,6 +174,7 @@ color: #7e0404;
 #btn {
     padding: 0;
     font-size: 14px;
+    font-weight: bold;
 }
 
 .form_display {

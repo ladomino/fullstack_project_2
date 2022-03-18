@@ -1,20 +1,28 @@
+////////////////////////////////////////////////////
 // Import Dependencies
+///////////////////////////////////////////////////
 require("dotenv").config(); // Load ENV Variables
 const express = require('express')
 const Recipe = require('../models/recipe')
 
+////////////////////////////////////////////////////
 // Setup for Recipe retrieval through API
+////////////////////////////////////////////////////
 const apiId = process.env.EDAMAM_API_ID
 const apiKey = process.env.EDAMAM_API_KEY
 
 const fetch = (url) => import('node-fetch').then(({default: fetch}) => fetch(url));
 
+////////////////////////////////////////////////////
 // Create router
+////////////////////////////////////////////////////
 const router = express.Router()
 
+/////////////////////////////////////////////////////
 // Router Middleware
 // Authorization middleware
 // If you have some resources that should be accessible to everyone regardless of loggedIn status, this middleware can be moved, commented out, or deleted. 
+/////////////////////////////////////////////////////
 router.use((req, res, next) => {
 	// checking the loggedIn boolean of our session
 	if (req.session.loggedIn) {
@@ -34,11 +42,9 @@ router.get("/", (req, res) => {
 
 	console.log("In get search route")
 	
+	// A query string might be preserved from a previous request
 	// Setup the requestUrl for recipes  
 	const searchQ = req.query.q; 
-	console.log("Search key: ", searchQ);
-	console.log("API_ID: ", apiId)
-	console.log("API_KEY: ", apiKey)
 
 	const username = req.session.username
 	const loggedIn = req.session.loggedIn
@@ -51,35 +57,29 @@ router.get("/", (req, res) => {
 
 	console.log("Search RequestUrl: ", requestUrl)
 
-	// Submit the request to retrieve the data
+	// Submit the request to the API to retrieve the data
 	// Fetch requires node-fetch and special import
 	fetch(requestUrl)
 	  .then((responseData)=>{
 		  return responseData.json();
 	  })
 	  .then((jsonData)=>{
-		 
-		  const recipeList = jsonData.hits;
-		  
-		  // Render the new display page and pass in the data needed 
-		  //  to display
-		//   res.render("./weather/show.liquid", { city: city, cityTemp: cityTemp,
-		// 	  description: cityDescription, minTemp: minTemp, maxTemp: maxTemp});
+		const recipeList = jsonData.hits;
 
 		res.render('index.liquid', { recipes: recipeList, searchQ, loggedIn, username, userId })
 	  })
 	  .catch((error)=>{
-		  // If any error is sent bac, you will have access to it here.
-		  console.log(error);
-		  res.json({ error })
+		// If any error is sent bac, you will have access to it here.
+		console.log(error);
+		res.json({ error })
 	  });
   });
 
 
 ////////////////////////////////////////////////////////////////////////////////
-// MyRecipes will display only those recipes for a user who is logged in.
-//
-// index that shows only the user's recipes
+// Show display for MyRecipes
+//   Only display those recipes for a given userId.
+//   Calls the recipe index page to display the recipes.
 ////////////////////////////////////////////////////////////////////////////////
 router.get('/mine', (req, res) => {
     // destructure user info from req.session
@@ -97,7 +97,10 @@ router.get('/mine', (req, res) => {
 		})
 })
 
+////////////////////////////////////////////////////////////////
+// NOT USED
 // new route -> GET route that renders our page with the form
+////////////////////////////////////////////////////////////////
 router.get('/new', (req, res) => {
 	const { username, userId, loggedIn } = req.session
 	res.render('recipes/new', { username, loggedIn })
@@ -129,7 +132,10 @@ router.post('/:id', (req, res) => {
 	})
 })
 
+////////////////////////////////////////////////////////////
+// Not used
 // edit route -> GET that takes us to the edit form view
+///////////////////////////////////////////////////////////
 router.get('/:id/edit', (req, res) => {
 	// we need to get the id
 	const recipeId = req.params.id
@@ -142,7 +148,10 @@ router.get('/:id/edit', (req, res) => {
 		})
 })
 
+/////////////////////////////////////////////////////////////
+// Not used
 // update route
+/////////////////////////////////////////////////////////////
 router.put('/:id', (req, res) => {
 	const recipeId = req.params.id
 	req.body.ready = req.body.ready === 'on' ? true : false
@@ -157,9 +166,10 @@ router.put('/:id', (req, res) => {
 })
 
 ////////////////////////////////////////////////////////////////
-// Show route for a specific recipe.
-// show route - when user clicks on an image - it takes us to
-//   the display to show the recipe
+// Show a specific recipe.
+//   Requires an api recipe id to use the API to retrieve the recipe
+//   so we can get at the ingredients.
+//   This comes in from clicking on a recipe image.
 ////////////////////////////////////////////////////////////////
 router.get('/:id', (req, res) => {
 	const apiRecipeId = req.params.id
@@ -189,15 +199,8 @@ router.get('/:id', (req, res) => {
 		  return responseData.json();
 	  })
 	  .then((jsonData)=>{
-		 
-		  const recipe = jsonData.recipe;
-		  console.log("Recipe:", recipe)
-
-		  // Render the new display page and pass in the data needed 
-		  //  to display
-		//   res.render("./weather/show.liquid", { city: city, cityTemp: cityTemp,
-		// 	  description: cityDescription, minTemp: minTemp, maxTemp: maxTemp});
-
+		// This is one specific recipe from the API call		 
+		const recipe = jsonData.recipe;
 		res.render('recipes/show', { recipe, username, loggedIn, userId })
 	  })
 	  .catch((error)=>{
@@ -208,13 +211,14 @@ router.get('/:id', (req, res) => {
 })
 
 /////////////////////////////////////////////////////////////////
-// delete route
+// Delete a recipe 
+// 	  Requires a recipe id to remove a recipe from the database.
 /////////////////////////////////////////////////////////////////
 router.delete('/:id', (req, res) => {
 	const recipeId = req.params.id
 	Recipe.findByIdAndRemove(recipeId)
 		.then(recipe => {
-			res.redirect('/recipes')
+			res.redirect('/recipes/mine')
 		})
 		.catch(error => {
 			res.redirect(`/error?error=${error}`)

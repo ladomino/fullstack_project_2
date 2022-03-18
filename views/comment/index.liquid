@@ -5,7 +5,10 @@
 <div class="container-lg">
     <div class="recipe_list_container">
         <div class="recipe_container">
-            <img class="recipe_image" src="{{recipe.recipe.image}}" alt="">         
+            {% assign recipeId = recipe.recipe.uri | split: "#recipe_" %}
+            <a href="/recipes/{{recipeId[1]}}">  
+                <img class="recipe_image" src="{{recipe.recipe.image}}" alt="">  
+            </a>       
             <div class="recipe_info"></div>
             <div class="recipe_name">{{recipe.recipe.label}}</div>
         </div>

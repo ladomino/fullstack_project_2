@@ -52,7 +52,7 @@ router.get("/", (req, res) => {
 
 	// limiting number of ingredients
 	// &ingr=${maxIngr}&to=50
-	const requestUrl = `https://api.edamam.com/search?q=${searchQ}&app_id=${apiId}&app_key=${apiKey}`
+	const requestUrl = `https://api.edamam.com/search?q=${searchQ}&app_id=${apiId}&app_key=${apiKey}&from=0&to=50`
 
 
 	console.log("Search RequestUrl: ", requestUrl)
@@ -66,6 +66,11 @@ router.get("/", (req, res) => {
 	  .then((jsonData)=>{
 		const recipeList = jsonData.hits;
 
+		console.log(recipeList);
+
+		// TEST TO SHOW FETCH GETTING ONLY 10 ITEMS MAX
+		//res.send(jsonData)
+		//
 		res.render('index.liquid', { recipes: recipeList, searchQ, loggedIn, username, userId })
 	  })
 	  .catch((error)=>{
@@ -187,7 +192,7 @@ router.get('/:id', (req, res) => {
 	const userId = req.session.userId
 
 
-	const requestUrl = `https://api.edamam.com/api/recipes/v2/${apiRecipeId}?type=public&app_id=${apiId}&app_key=${apiKey}`
+	const requestUrl = `https://api.edamam.com/api/recipes/v2/${apiRecipeId}?type=public&app_id=${apiId}&app_key=${apiKey}&from=0&to=50`
 
 
 	console.log("Show Route requestUrl: ", requestUrl)

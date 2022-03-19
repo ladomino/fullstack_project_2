@@ -20,7 +20,7 @@ const apiKey = process.env.EDAMAM_API_KEY
 const fetch = (url) => import('node-fetch').then(({default: fetch}) => fetch(url));
 
 const searchQ = "keto"
-const requestUrl = `https://api.edamam.com/search?q=${searchQ}&app_id=${apiId}&app_key=${apiKey}`
+const requestUrl = `https://api.edamam.com/search?q=${searchQ}&app_id=${apiId}&app_key=${apiKey}&from=0&to=50`
 
 //////////////////////////////
 // Middleware + App Object  //
@@ -51,18 +51,12 @@ app.get('/', (req, res) => {
 	  })
 	  .then((jsonData)=>{
 		 
-		  const recipeList = jsonData.hits;
-		  //console.log("Name of first: ", recipeList[0].recipe.label);
+		const recipeList = jsonData.hits;
+		//console.log("Name of first: ", recipeList[0].recipe.label);
 
-		  // res.send(recipeList)
-		  // console.log(recipeList)
+		// res.send(recipeList)
+		// console.log(recipeList)
 		  
-		  
-		  // Render the new display page and pass in the data needed 
-		  //  to display
-		//   res.render("./weather/show.liquid", { city: city, cityTemp: cityTemp,
-		// 	  description: cityDescription, minTemp: minTemp, maxTemp: maxTemp});
-
 		res.render('index.liquid', { recipes: recipeList, searchQ, loggedIn, username, userId })
 	  })
 	  .catch((error)=>{

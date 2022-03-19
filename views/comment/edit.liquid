@@ -1,4 +1,3 @@
-
 {% layout 'layout.liquid'%}
 {% block content %}
 
@@ -16,21 +15,21 @@
        {% if recipe.comments.size != 0 %}
         <div class="recipe_comment_container">
             <div class="recipe_comment">Comments</div>
-            {% for comment in recipe.comments %}
+            {% for recipeComment in recipe.comments %}
                 <div class="recipe_comment_info">
                     <div class="recipe_comment_delete">
-                        <form class="form_display" action="/comment/{{recipe.id}}/{{comment.id}}" method="GET"> 
+                        <!-- <form class="form_display" action="/comment/{{recipe.id}}/{{comment.id}}?_method=PATCH" method="POST"> 
                             <input type="submit" class="btn" id="btn" value="+ Edit"> 
-                        </form>
-                        <form class="form_display" action="/comment/delete/{{recipe.id}}/{{comment.id}}?_method=DELETE" method="POST"> 
+                        </form> -->
+                        <form class="form_display" action="/comment/delete/{{recipe.id}}/{{recipeComment.id}}?_method=DELETE" method="POST"> 
                             <input type="submit" class="btn" id="btn" value="- Delete"> 
                         </form>
                     </div>
                     <div class="recipe_comment_title">
-                    Title: {{comment.title}}
+                    Title: {{recipeComment.title}}
                     </div>
                     <div class="recipe_comment_body">
-                    {{comment.body}}
+                    {{recipeComment.body}}
                     </div>
                 </div>
             {% endfor %}
@@ -38,16 +37,16 @@
         {% endif %}
 
         <div class="recipe_comment_container">
-            <div class="recipe_comment">Add Comment</div>
+            <div class="recipe_comment">Edit Comment</div>
                 <div class="recipe_comment">
-                    <form action="/comment/{{recipe.id}}" method="POST">
-                        <input type="text" class="form-control" id="recipe_form" name="title" placeholder="enter title for comment">          
+                    <form action="/comment/{{recipe.id}}/{{comment.id}}?_method=PATCH" method="POST">
+                        <input type="text" class="form-control" id="recipe_form" name="title" value="{{comment.title}}">          
                         <br>
-                        <textarea id="recipe_comment_text" name="body" cols="27" rows="6" placeholder="enter comment here ...">
+                        <textarea id="recipe_comment_text" name="body" cols="27" rows="6" contenteditable="true">
+                        {{comment.body}}
                         </textarea>
                         <div class="recipe_button_info">
-                        <input type="submit" class="btn" id="btn_plus" value="+">
-                        <b>Comment</b>
+                        <input type="submit" class="btn" id="btn_plus" value="+ Comment">
                         </div>
                    </form>
               </div>

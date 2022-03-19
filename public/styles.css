@@ -181,6 +181,12 @@ color: #7e0404;
   font-weight: bold;
 }
 
+#search_btn {
+  background-color:#A9DFBF;
+  color: #239F57;
+  border-color: #239F57;
+}
+
 .form_display {
   display: inline-flex;
 }

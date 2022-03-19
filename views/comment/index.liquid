@@ -8,8 +8,8 @@
             {% assign recipeId = recipe.recipe.uri | split: "#recipe_" %}
             <a href="/recipes/{{recipeId[1]}}">  
                 <img class="recipe_image" src="{{recipe.recipe.image}}" alt="">  
-            </a>       
-            <div class="recipe_info"></div>
+            </a>   
+            <div class="recipe_info"></div>    
             <div class="recipe_name">{{recipe.recipe.label}}</div>
         </div>
 
@@ -27,10 +27,10 @@
                         </form>
                     </div>
                     <div class="recipe_comment_title">
-                    Title: {{comment.title}}
+                    Title: {{- comment.title -}}
                     </div>
                     <div class="recipe_comment_body">
-                    {{comment.body}}
+                    {{- comment.body -}}
                     </div>
                 </div>
             {% endfor %}

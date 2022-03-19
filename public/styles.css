@@ -47,7 +47,7 @@ body {
     flex-direction: column;
     margin: 5px;
     padding: 17px;
-    width: 450px;
+    width: 400px;
     border-radius: 10px;
     box-shadow: 1px 4px 10px 0 #5e2104f7;
     zoom: 100%;
@@ -189,4 +189,13 @@ color: #7e0404;
 
 .form_display {
   display: inline-flex;
+}
+
+::placeholder {
+  color: lightgrey;
+  font-size: 11px;
+}
+
+h5 {
+  margin-top:10px;
 }

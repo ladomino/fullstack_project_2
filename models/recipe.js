@@ -17,6 +17,8 @@ const recipeSchema = new Schema(
 			uri: {type: String, required: true},
 			label: { type: String, required: true},
 			image: {type: String, required: true},
+			ingredientLines: [{type: String}],
+			yield: {type: Number, default: 0},
 		},
 			// Subdocument array
 		comments: [commentSchema],

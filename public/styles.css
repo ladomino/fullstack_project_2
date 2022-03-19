@@ -172,11 +172,15 @@ color: #7e0404;
 }
 
 #btn {
-    padding: 0;
-    font-size: 14px;
-    font-weight: bold;
+  padding: 0;
+  font-size: 14px;
+  font-weight: bold;
+}
+
+#btn_plus {
+  font-weight: bold;
 }
 
 .form_display {
-    display: inline-flex;
+  display: inline-flex;
 }

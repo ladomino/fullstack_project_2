@@ -66,8 +66,6 @@ router.get("/", (req, res) => {
 	  .then((jsonData)=>{
 		const recipeList = jsonData.hits;
 
-		console.log(recipeList);
-
 		// TEST TO SHOW FETCH GETTING ONLY 10 ITEMS MAX
 		//res.send(jsonData)
 		//
@@ -130,7 +128,8 @@ router.post('/:id', (req, res) => {
 	Recipe.create(req.body)
 		.then(recipe => {
 			console.log('this was returned from create', recipe)
-	   		res.redirect(`/recipes?q=${searchQuery.q}`)
+
+	   		res.render(`/recipes?q=${searchQuery.q}`, {recipeId})
 	 	})
 	 	.catch(error => {
 	 		res.redirect(`/error?error=${error}`)
@@ -144,9 +143,14 @@ router.post('/:id', (req, res) => {
 router.get('/:id/edit', (req, res) => {
 	// we need to get the id
 	const recipeId = req.params.id
+
+	const username = req.session.username
+	const loggedIn = req.session.loggedIn
+	const userId = req.session.userId
+
 	Recipe.findById(recipeId)
 		.then(recipe => {
-			res.render('recipes/edit', { recipe })
+			res.render('recipes/edit', { recipe, username, loggedIn, userId })
 		})
 		.catch((error) => {
 			res.redirect(`/error?error=${error}`)

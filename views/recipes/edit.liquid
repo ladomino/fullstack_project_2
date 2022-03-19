@@ -1,43 +1,55 @@
 {% layout 'layout.liquid' %}
 {% block content %}
-<div class="container-sm">
-    <form action="/recipes" method="POST">
-        <fieldset>
-            <legend>Create New recipe</legend>
-            <label class="form-label">Title: </label>
-            <input 
-                type="text" 
-                name="title" 
-                placeholder="{{ recipe.title }}"
-                value="{{ recipe.title }}"
-                class="form-control"
-            >
-            <label class="form-label">Body:</label>
-            <input 
-                type="text" 
-                name="body" 
-                placeholder="{{ recipe.body }}" 
-                value="{{ recipe.body }}" 
-                class="form-control"
-            >
-            <label class="form-label">Amount:</label>
-            <input 
-                type="number" 
-                name="amount"
-                value="{{ recipe.amount }}"
-                class="form-control"
-            >
-            <label class="form-label">Ready:</label>
-            <input 
-                type="checkbox" 
-                name="ready" 
-                class="form-check-input"
-                {% if recipe.ready %}
-                    checked
-                {% endif %}
-            >
-        </fieldset>
-        <input type="submit" value="Edit recipe" class="btn btn-success">
-    </form>
+
+<div class="container-lg">
+    <div class="recipe_list_container"> 
+        <div class="recipe_container">        
+            <div class="recipe_info">
+
+                <!-- <form action="/recipes" method="POST">
+                    <fieldset>
+                        <legend>Edit recipe</legend>
+                        <label class="form-label">Title: </label>
+                        <input 
+                            type="text" 
+                            name="recipe.label" 
+                            placeholder="{{ recipe.label}}"
+                            value="{{ recipe.label }}"
+                            class="form-control"
+                        >
+                        <label class="form-label">Image url:</label>
+                        <input 
+                            type="text" 
+                            name="recipe.image" 
+                            placeholder="{{ recipe.image }}" 
+                            value="{{ recipe.image }}" 
+                            class="form-control"
+                        >
+                        <label class="form-label">Yield:</label>
+                        <input 
+                            type="number" 
+                            name="recipe.yield"
+                            value="{{ recipe.yield}}"
+                            class="form-control"
+                        >
+                        <label class="form-label">Ingredients:</label>
+
+                        {% for line in recipe.ingredientLines %}
+                            <input 
+                                type="text" 
+                                name="recipe.ingredientLines[{{forloop.index0}}]" 
+                                placeholder="{{ line }}" 
+                                value="{{ line }}" 
+                                class="form-control"
+                            >
+                        {% endfor %}
+
+                    </fieldset>
+                    <input type="submit" value="+ Edit recipe" class="btn" id="btn_plus">
+                </form> -->
+            </div>
+        </div>
+    </div>
 </div>
+
 {% endblock %}

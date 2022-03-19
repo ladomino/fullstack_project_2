@@ -181,6 +181,12 @@ color: #7e0404;
   font-weight: bold;
 }
 
+#mybtn_plus {
+  font-weight: bold;
+  font-size: 11px;
+  padding: 0;
+}
+
 #search_btn {
   background-color:#A9DFBF;
   color: #239F57;

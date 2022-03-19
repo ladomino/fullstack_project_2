@@ -5,29 +5,6 @@
     <div class="recipe_list_container">
         <div class="recipe_show_container">
         <img class="recipe_image" src="{{recipe.image}}" alt="">          
-            <div class="recipe_info">
-                <div class="recipe_type">
-                    <b>Comments</b>
-                </div>
-                <!-- <div class="recipe_type">
-                    {%if recipe.owner == userId %}
-                         <form class="form_display" action="/recipes/{{recipeId[1]}}?_method=DELETE" method="POST"> 
-                            <input type="submit" class="btn" id="btn_plus" value="-"> 
-                            <input type="hidden" name="recipe.uri" value="{{recipe.uri}}">
-                            <input type="hidden" name="recipe.label" value="{{recipe.label}}">
-                            <input type="hidden" name="recipe.image" value="{{recipe.image}}">          
-                        </form>
-                    {% else %}
-                        <form class="form_display" action="/recipes/{{recipeId[1]}}" method="POST"> 
-                            <input type="submit" class="btn" id="btn_plus" value="+"> 
-                            <input type="hidden" name="recipe.uri" value="{{recipe.uri}}">
-                            <input type="hidden" name="recipe.label" value="{{recipe.label}}">
-                            <input type="hidden" name="recipe.image" value="{{recipe.image}}">          
-                        </form>
-                    {%endif %}
-                    MyRecipes
-                </div> -->
-            </div>
             <div class="recipe_name">{{recipe.label}}</div>
             <div class="recipe-ingredients">
                 <h5>Ingredients</h5>
@@ -41,7 +18,5 @@
         </div>
     </div>
 </div>
-
-
 
 {% endblock %}

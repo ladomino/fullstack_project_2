@@ -1,37 +1,110 @@
 {% layout 'layout.liquid' %}
 {% block content %}
-<div class="container-sm">
-    <form action="/recipes" method="POST">
-        <fieldset>
-            <legend>Create New recipe</legend>
-            <label class="form-label">Title: </label>
-            <input 
-                type="text" 
-                name="title" 
-                placeholder="enter recipe title"
-                class="form-control"
-            >
-            <label class="form-label">Body:</label>
-            <input 
-                type="text" 
-                name="body" 
-                placeholder="enter recipe body" 
-                class="form-control"
-            >
-            <label class="form-label">Amount:</label>
-            <input 
-                type="number" 
-                name="amount" 
-                class="form-control"
-            >
-            <label class="form-label">Ready:</label>
-            <input 
-                type="checkbox" 
-                name="ready" 
-                class="form-check-input"
-            >
-        </fieldset>
-        <input type="submit" value="Create New recipe" class="btn btn-success">
-    </form>
+
+<div class="container-lg">
+    <div class="recipe_list_container"> 
+        <div class="recipe_show_container">        
+            <form action="/recipes/new?_method=POST" method="POST">
+                <fieldset>
+                    <legend>Create New Recipe</legend>
+                    <label class="form-label">Title: </label>
+                    <input 
+                        type="text" 
+                        name="label" 
+                        placeholder="enter recipe name"
+                        class="form-control"
+                    >
+                    <label class="form-label">Image url:</label>
+                    <input 
+                        type="text" 
+                        name="image" 
+                        placeholder="enter image url" 
+                        class="form-control"
+                    >
+                    <label class="form-label">Yield:</label>
+                    <input 
+                        type="number" 
+                        name="yield"
+                        placeholder="0"
+                        class="form-control"
+                    >
+                    <label class="form-label">Ingredients:</label>
+
+                    <input 
+                        type="text" 
+                        name="ingredientLines"
+                        placeholder="1 cup sugar" 
+                        class="form-control"
+                    >
+
+                    <input 
+                        type="text" 
+                        name="ingredientLines"
+                        placeholder="" 
+                        class="form-control"
+                    >
+
+                    <input 
+                        type="text" 
+                        name="ingredientLines"
+                        placeholder="" 
+                        class="form-control"
+                    >
+
+                    <input 
+                        type="text" 
+                        name="ingredientLines"
+                        placeholder="" 
+                        class="form-control"
+                    >
+
+                    <input 
+                        type="text" 
+                        name="ingredientLines"
+                        placeholder="" 
+                        class="form-control"
+                    >
+
+                    <input 
+                        type="text" 
+                        name="ingredientLines"
+                        placeholder="" 
+                        class="form-control"
+                    >
+                
+                    <input 
+                        type="text" 
+                        name="ingredientLines"
+                        placeholder="" 
+                        class="form-control"
+                    >
+        
+                    <input 
+                        type="text" 
+                        name="ingredientLines"
+                        placeholder="" 
+                        class="form-control"
+                    >
+
+                    <input 
+                        type="text" 
+                        name="ingredientLines"
+                        placeholder="" 
+                        class="form-control"
+                    >
+
+                    <input 
+                        type="text" 
+                        name="ingredientLines"
+                        placeholder="" 
+                        class="form-control"
+                    >
+
+                </fieldset>
+                <input type="submit" value="+ Add New" class="btn" id="btn_plus">
+            </form>
+        </div>
+    </div>
 </div>
+
 {% endblock %}

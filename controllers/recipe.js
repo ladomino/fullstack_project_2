@@ -101,12 +101,40 @@ router.get('/mine', (req, res) => {
 })
 
 ////////////////////////////////////////////////////////////////
-// NOT USED
-// new route -> GET route that renders our page with the form
+// Create a New Recipe
+//
+// 	 Creates a New recipe using the new form.
 ////////////////////////////////////////////////////////////////
 router.get('/new', (req, res) => {
 	const { username, userId, loggedIn } = req.session
+
 	res.render('recipes/new', { username, loggedIn })
+})
+
+///////////////////////////////////////////////////////////////////////////
+// Called when adding a New Recipe to the database  
+//    A new recipe object is created for a specific owner.
+//////////////////////////////////////////////////////////////////////////
+router.post('/new', (req, res) => {
+	const apiRecipeId = req.params.id
+
+	// destructure user info from req.session
+    const { username, userId, loggedIn } = req.session
+	
+	req.body.owner = req.session.userId
+
+	console.log("Create body:", req.body)
+
+	//res.send(req.body)
+	Recipe.create(req.body)
+		.then(recipe => {
+			console.log('this was returned from create', recipe)
+
+			res.redirect(`/recipes/mine`)
+	})
+	.catch(error => {
+		res.redirect(`/error?error=${error}`)
+	})
 })
 
 ///////////////////////////////////////////////////////////////////////////

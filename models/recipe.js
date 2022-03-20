@@ -13,7 +13,7 @@ const { Schema, model } = mongoose
 // Still being modified
 const recipeSchema = new Schema(
 	{
-		uri: {type: String, required: true},
+		uri: {type: String},
 		label: { type: String, required: true},
 		image: {type: String, required: true},
 		yield: {type: Number, default: 0},

@@ -4,12 +4,12 @@
 <div class="container-lg">
     <div class="recipe_list_container">
         <div class="recipe_container">
-            {% assign recipeId = recipe.recipe.uri | split: "#recipe_" %}
+            {% assign recipeId = recipe.uri | split: "#recipe_" %}
             <a href="/recipes/{{recipeId[1]}}">  
-                <img class="recipe_image" src="{{recipe.recipe.image}}" alt="">  
+                <img class="recipe_image" src="{{recipe.image}}" alt="">  
             </a>       
             <div class="recipe_info"></div>
-            <div class="recipe_name">{{recipe.recipe.label}}</div>
+            <div class="recipe_name">{{recipe.label}}</div>
         </div>
 
        {% if recipe.comments.size != 0 %}
@@ -18,18 +18,15 @@
             {% for recipeComment in recipe.comments %}
                 <div class="recipe_comment_info">
                     <div class="recipe_comment_delete">
-                        <!-- <form class="form_display" action="/comment/{{recipe.id}}/{{comment.id}}?_method=PATCH" method="POST"> 
-                            <input type="submit" class="btn" id="btn" value="+ Edit"> 
-                        </form> -->
                         <form class="form_display" action="/comment/delete/{{recipe.id}}/{{recipeComment.id}}?_method=DELETE" method="POST"> 
                             <input type="submit" class="btn" id="btn" value="- Delete"> 
                         </form>
                     </div>
                     <div class="recipe_comment_title">
-                    Title: {{- recipeComment.title -}}
+                        Title: {{- recipeComment.title -}}
                     </div>
                     <div class="recipe_comment_body">
-                    {{- recipeComment.body -}}
+                        {{- recipeComment.body -}}
                     </div>
                 </div>
             {% endfor %}

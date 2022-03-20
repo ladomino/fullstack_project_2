@@ -110,10 +110,10 @@ router.get('/new', (req, res) => {
 })
 
 ///////////////////////////////////////////////////////////////////////////
-// Called when adding to Myrecipes.  It is specific to a recipe and to
-//   a query string as the query string must be preserved to display 
-//   properly after for display purposes.  A new recipe object is created
-//   for a specific owner.
+// Called when adding to Myrecipes.  
+//    A new recipe object is created for a specific owner.
+//    The query string is needed to redraw the exact display you were on
+//    while adding to Myrecipes.
 //////////////////////////////////////////////////////////////////////////
 router.post('/:id', (req, res) => {
 	const apiRecipeId = req.params.id
@@ -128,38 +128,17 @@ router.post('/:id', (req, res) => {
 	
 	req.body.owner = req.session.userId
 
-	// const newRecipe = req.body
-	const requestUrl = `https://api.edamam.com/api/recipes/v2/${apiRecipeId}?type=public&app_id=${apiId}&app_key=${apiKey}`
+	console.log("Create body:", req.body)
 
-	////////////////////////////////////////////////
-	// We need to get the ingredients array
-	// Submit the request to retrieve the data
-	// Fetch requires node-fetch and special import
-	fetch(requestUrl)
-	  .then((responseData)=>{
-		  return responseData.json();
-	  })
-	  .then((jsonData)=>{
-			// This is one specific recipe from the API call		 
-			const recipe = jsonData.recipe;
-			req.body.ingredientLines = recipe.ingredientLines;
-			console.log("Create body:", req.body)
+	//res.send(req.body)
+	Recipe.create(req.body)
+		.then(recipe => {
+			console.log('this was returned from create', recipe)
 
-			//res.send(req.body)
-			Recipe.create(req.body)
-			.then(recipe => {
-				console.log('this was returned from create', recipe)
-
-				res.redirect(`/recipes?q=${searchQuery.q}`)
-			})
-			.catch(error => {
-				res.redirect(`/error?error=${error}`)
-			})
-	  .catch((error)=>{
-		  // If any error is sent bac, you will have access to it here.
-		console.log(error);
+			res.redirect(`/recipes?q=${searchQuery.q}`)
+	})
+	.catch(error => {
 		res.redirect(`/error?error=${error}`)
-		})
 	})
 })
 
@@ -193,10 +172,6 @@ router.put('/:id', (req, res) => {
 	const recipeId = req.params.id
 
 	console.log("Update Body: ", req.body)
-
-	// Need to do something to get ingredientLines into correct
-	//  format to update the schema.
-	console.log('Req ingredientLines:', req.body.ingredientLines)
 
 	Recipe.findByIdAndUpdate(recipeId, req.body, { new: true })
 		.then(recipe => {
@@ -271,7 +246,7 @@ router.get('/mine/:id', (req, res) => {
 	Recipe.findById(recipeId)
 		.then(recipe => {
 			console.log("show myRecipe: ", recipe)
-			res.render('recipes/show', { recipe: recipe.recipe, username, loggedIn, userId })
+			res.render('recipes/show', { recipe, username, loggedIn, userId })
 		})
 		.catch((error) => {
 			res.redirect(`/error?error=${error}`)

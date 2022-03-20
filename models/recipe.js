@@ -13,12 +13,10 @@ const { Schema, model } = mongoose
 // Still being modified
 const recipeSchema = new Schema(
 	{
-		recipe: {
-			uri: {type: String, required: true},
-			label: { type: String, required: true},
-			image: {type: String, required: true},
-			yield: {type: Number, default: 0},
-		},
+		uri: {type: String, required: true},
+		label: { type: String, required: true},
+		image: {type: String, required: true},
+		yield: {type: Number, default: 0},
 		ingredientLines: [{type: String}],
 			// Subdocument array
 		comments: [commentSchema],

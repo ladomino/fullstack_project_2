@@ -7,24 +7,21 @@
     <div class="recipe_list_container">
         {% for item in recipes %}
             <div class="recipe_container">
-                {% assign appRecipeId = item.recipe.uri | split: "#recipe_" %}
+                {% assign appRecipeId = item.uri | split: "#recipe_" %}
                 {% if item.owner == userId %}
                      <a href="/recipes/mine/{{item.id}}">  
-                       <img class="recipe_image" src="{{item.recipe.image}}" alt="{{item.recipe.label}}">
+                       <img class="recipe_image" src="{{item.image}}" alt="{{item.label}}">
                      </a>
                 {% else %}
                     <a href="/recipes/{{appRecipeId[1]}}">  
-                        <img class="recipe_image" src="{{item.recipe.image}}" alt="{{item.recipe.label}}">
+                        <img class="recipe_image" src="{{item.image}}" alt="{{item.label}}">
                     </a>
                 {% endif %}           
                 <div class="recipe_info">
                     <div class="recipe_type">
                         {%if item.owner == userId %}
                             <form class="form_display" action="/comment/{{item.id}}" method="GET">
-                                <input type="submit" class="btn" id="mybtn_plus" value="+ Comments">
-                                <input type="hidden" name="recipe.uri" value="{{appRecipe[1]}}">
-                                <input type="hidden" name="recipe.label" value="{{item.recipe.label}}">
-                                <input type="hidden" name="recipe.image" value="{{item.recipe.image}}">          
+                                <input type="submit" class="btn" id="mybtn_plus" value="+ Comments">    
                           </form>
                         {% endif %}
                     </div>
@@ -47,7 +44,7 @@
                         {% endif %}
                     </div>
                 </div>
-                <div class="recipe_name">{{item.recipe.label}}</div>
+                <div class="recipe_name">{{item.label}}</div>
             </div>
         {% endfor %}
     </div>

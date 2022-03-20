@@ -1,8 +1,7 @@
+////////////////////////////////////////////////////
+// Import Dependencies
+///////////////////////////////////////////////////
 const express = require('express')
-
-// Mongoose models
-// good to bring in the Place and Comment models
-// since comments are dependent on places
 const Recipe = require('../models/recipe')
 const Comment = require('../models/comment')
 
@@ -41,13 +40,7 @@ const removeBlanks = require('../utils/remove_blank_fields')
 //////////////////////////////////////////////
 router.get('/:recipeId', removeBlanks, (req, res) => {
     const recipeId = req.params.recipeId
-    
-    // we'll adjust req.body to include an author
-    // the author's id will be the logged in user's id
-    // req.body.author = req.session.userId
-    const username = req.session.username
-	const loggedIn = req.session.loggedIn
-	const userId = req.session.userId
+    const { username, userId, loggedIn } = req.session
 
 
     // we'll find the recipe with the recipeId
@@ -73,14 +66,8 @@ router.get('/:recipeId', removeBlanks, (req, res) => {
 router.get('/:recipeId/:commentId', removeBlanks, (req, res) => {
     const recipeId = req.params.recipeId
     const commentId = req.params.commentId;
+    const { username, userId, loggedIn } = req.session
     
-    // we'll adjust req.body to include an author
-    // the author's id will be the logged in user's id
-    // req.body.author = req.session.userId
-    const username = req.session.username
-	const loggedIn = req.session.loggedIn
-	const userId = req.session.userId
-
 
     // we'll find the recipe with the recipeId
     Recipe.findById(recipeId)
@@ -103,16 +90,9 @@ router.get('/:recipeId/:commentId', removeBlanks, (req, res) => {
 // Form for the add comment uses this route.
 //////////////////////////////////////////////////////
 router.post('/:recipeId', removeBlanks, (req, res) => {
-    const recipeId = req.params.recipeId
-    console.log('POST to create comment - first comment body', req.body)
+    const recipeId = req.params.recipeId  
+    const { username, userId, loggedIn } = req.session
     
-    // we'll adjust req.body to include an author
-    // the author's id will be the logged in user's id
-    //req.body.author = req.session.userId
-    const username = req.session.username
-	const loggedIn = req.session.loggedIn
-	const userId = req.session.userId
-
     // we'll find the fruit with the fruitId
     Recipe.findById(recipeId)
         .then(recipe => {
@@ -148,12 +128,9 @@ router.patch('/:recipeId/:commentId', removeBlanks, (req, res, next) => {
 
 			// find the recipes comment using commentId
 			const comment = recipe.comments.id(commentId)
-            console.log("comment: ", comment)
 
 			// update title and content of comment
 			const newComment = req.body
-            console.log("newComment", newComment)
-            console.log("req.body", req.body)
 
             comment.title = newComment.title
             comment.body = newComment.body
@@ -180,6 +157,7 @@ router.delete('/delete/:recipeId/:commId', (req, res) => {
     // first we want to parse out our ids
     const recipeId = req.params.recipeId
     const commId = req.params.commId
+
     // then we'll find the recipe
     Recipe.findById(recipeId)
         .then(handle404)
@@ -188,7 +166,6 @@ router.delete('/delete/:recipeId/:commId', (req, res) => {
                 theComment.remove()
                 // return the saved recipe
                 return recipe.save()
-
         })
         .then(recipe => {
             // redirect to the comment show page

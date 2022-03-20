@@ -39,8 +39,6 @@ router.use((req, res, next) => {
 //   Example ?q=keto
 /////////////////////////////////////////////////////////////////////////////
 router.get("/", (req, res) => {
-
-	console.log("In get search route")
 	
 	// A query string might be preserved from a previous request
 	// Setup the requestUrl for recipes  
@@ -55,7 +53,6 @@ router.get("/", (req, res) => {
 	const requestUrl = `https://api.edamam.com/search?q=${searchQ}&app_id=${apiId}&app_key=${apiKey}&from=0&to=50`
 	const requestArticleUrl = "https://health.gov/myhealthfinder/api/v3/topicsearch.json?categoryId=healthy"
 
-	console.log("Search RequestUrl: ", requestUrl)
 
 	// Submit the request to the API to retrieve the data
 	// Fetch requires node-fetch and special import
@@ -75,9 +72,7 @@ router.get("/", (req, res) => {
 		})
 		.then((jsonArticleData)=>{
 		   const articleList = jsonArticleData.Result.Resources.Resource;
-		   //console.log("Article array: ", articleList)
-		   console.log("First Article Title", articleList[0].Title)
-	   
+
 		   res.render('index.liquid', { recipes: recipeList, articles: articleList, searchQ, loggedIn, username, userId })
 		  })
 		})
@@ -133,8 +128,6 @@ router.post('/new', (req, res) => {
 	
 	req.body.owner = req.session.userId
 
-	console.log("Create body:", req.body)
-
 	//res.send(req.body)
 	Recipe.create(req.body)
 		.then(recipe => {
@@ -159,14 +152,8 @@ router.post('/:id', (req, res) => {
 
 	// destructure user info from req.session
     const { username, userId, loggedIn } = req.session
-
-
-	console.log("Body:", req.body)
-	console.log("Query string q= ", searchQuery.q)
 	
 	req.body.owner = req.session.userId
-
-	console.log("Create body:", req.body)
 
 	//res.send(req.body)
 	Recipe.create(req.body)
@@ -213,10 +200,7 @@ router.put('/:id', (req, res) => {
 
 	Recipe.findByIdAndUpdate(recipeId, req.body, { new: true })
 		.then(recipe => {
-
 			res.redirect(`/recipes/mine`)
-			// this would require an apiId to get to recipes/id
-			//res.redirect(`/recipes/${recipe.id}`)
 		})
 		.catch((error) => {
 	 		res.redirect(`/error?error=${error}`)
@@ -232,23 +216,10 @@ router.put('/:id', (req, res) => {
 router.get('/:id', (req, res) => {
 	const apiRecipeId = req.params.id
 
-	// Need to retrieve the recipe by the API.
-	console.log("In show route")
-	
-	// Setup the requestUrl for recipes  
-	console.log("RecipeId: ", apiRecipeId)
-	console.log("API_ID: ", apiId)
-	console.log("API_KEY: ", apiKey)
-
-	const username = req.session.username
-	const loggedIn = req.session.loggedIn
-	const userId = req.session.userId
-
+	const { username, userId, loggedIn } = req.session
 
 	const requestUrl = `https://api.edamam.com/api/recipes/v2/${apiRecipeId}?type=public&app_id=${apiId}&app_key=${apiKey}`
 
-
-	console.log("Show Route requestUrl: ", requestUrl)
 
 	// Submit the request to retrieve the data
 	// Fetch requires node-fetch and special import
@@ -276,14 +247,11 @@ router.get('/mine/:id', (req, res) => {
 	// we need to get the id
 	const recipeId = req.params.id
 
-	console.log("Show myRecipe")
-
 	// destructure user info from req.session
 	const { username, userId, loggedIn } = req.session
 
 	Recipe.findById(recipeId)
 		.then(recipe => {
-			console.log("show myRecipe: ", recipe)
 			res.render('recipes/show', { recipe, username, loggedIn, userId })
 		})
 		.catch((error) => {

@@ -46,9 +46,9 @@ router.get("/", (req, res) => {
 	// Setup the requestUrl for recipes  
 	const searchQ = req.query.q; 
 
-	const username = req.session.username
-	const loggedIn = req.session.loggedIn
-	const userId = req.session.userId
+	// destructure user info from req.session
+	const { username, userId, loggedIn } = req.session
+
 
 	// limiting number of ingredients
 	// &ingr=${maxIngr}&to=50
@@ -116,23 +116,50 @@ router.get('/new', (req, res) => {
 //   for a specific owner.
 //////////////////////////////////////////////////////////////////////////
 router.post('/:id', (req, res) => {
-	const recipeId = req.params.id
+	const apiRecipeId = req.params.id
 	const searchQuery = req.query
 
-	// console.log("Body:", req.body)
+	// destructure user info from req.session
+    const { username, userId, loggedIn } = req.session
+
+
+	console.log("Body:", req.body)
 	console.log("Query string q= ", searchQuery.q)
 	
 	req.body.owner = req.session.userId
 
-	//res.send(req.body)
-	Recipe.create(req.body)
-		.then(recipe => {
-			console.log('this was returned from create', recipe)
+	// const newRecipe = req.body
+	const requestUrl = `https://api.edamam.com/api/recipes/v2/${apiRecipeId}?type=public&app_id=${apiId}&app_key=${apiKey}`
 
-	   		res.render(`/recipes?q=${searchQuery.q}`, {recipeId})
-	 	})
-	 	.catch(error => {
-	 		res.redirect(`/error?error=${error}`)
+	////////////////////////////////////////////////
+	// We need to get the ingredients array
+	// Submit the request to retrieve the data
+	// Fetch requires node-fetch and special import
+	fetch(requestUrl)
+	  .then((responseData)=>{
+		  return responseData.json();
+	  })
+	  .then((jsonData)=>{
+			// This is one specific recipe from the API call		 
+			const recipe = jsonData.recipe;
+			req.body.ingredientLines = recipe.ingredientLines;
+			console.log("Create body:", req.body)
+
+			//res.send(req.body)
+			Recipe.create(req.body)
+			.then(recipe => {
+				console.log('this was returned from create', recipe)
+
+				res.redirect(`/recipes?q=${searchQuery.q}`)
+			})
+			.catch(error => {
+				res.redirect(`/error?error=${error}`)
+			})
+	  .catch((error)=>{
+		  // If any error is sent bac, you will have access to it here.
+		console.log(error);
+		res.redirect(`/error?error=${error}`)
+		})
 	})
 })
 
@@ -144,12 +171,12 @@ router.get('/:id/edit', (req, res) => {
 	// we need to get the id
 	const recipeId = req.params.id
 
-	const username = req.session.username
-	const loggedIn = req.session.loggedIn
-	const userId = req.session.userId
+	// destructure user info from req.session
+	const { username, userId, loggedIn } = req.session
 
 	Recipe.findById(recipeId)
 		.then(recipe => {
+			console.log("edit recipe: ", recipe)
 			res.render('recipes/edit', { recipe, username, loggedIn, userId })
 		})
 		.catch((error) => {
@@ -158,20 +185,24 @@ router.get('/:id/edit', (req, res) => {
 })
 
 /////////////////////////////////////////////////////////////
-// Not used
-// update route
+// Update a MyRecipe
+//   update a recipe by the recipeId
 /////////////////////////////////////////////////////////////
 router.put('/:id', (req, res) => {
 	const recipeId = req.params.id
-	req.body.ready = req.body.ready === 'on' ? true : false
 
-	// Recipe.findByIdAndUpdate(recipeId, req.body, { new: true })
-	// 	.then(recipe => {
-	// 		res.redirect(`/recipes/${recipe.id}`)
-	// 	})
-	// 	.catch((error) => {
-	// 		res.redirect(`/error?error=${error}`)
-	// 	})
+	console.log("Update Body: ", req.body)
+
+	Recipe.findByIdAndUpdate(recipeId, req.body, { new: true })
+		.then(recipe => {
+
+			res.redirect(`/recipes/mine`)
+			// this would require an apiId to get to recipes/id
+			//res.redirect(`/recipes/${recipe.id}`)
+		})
+		.catch((error) => {
+	 		res.redirect(`/error?error=${error}`)
+	})
 })
 
 ////////////////////////////////////////////////////////////////
@@ -196,7 +227,7 @@ router.get('/:id', (req, res) => {
 	const userId = req.session.userId
 
 
-	const requestUrl = `https://api.edamam.com/api/recipes/v2/${apiRecipeId}?type=public&app_id=${apiId}&app_key=${apiKey}&from=0&to=50`
+	const requestUrl = `https://api.edamam.com/api/recipes/v2/${apiRecipeId}?type=public&app_id=${apiId}&app_key=${apiKey}`
 
 
 	console.log("Show Route requestUrl: ", requestUrl)

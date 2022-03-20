@@ -22,7 +22,7 @@
                         {%if item.owner == userId %}
                             <form class="form_display" action="/comment/{{item.id}}" method="GET">
                                 <input type="submit" class="btn" id="mybtn_plus" value="+ Comments">
-                                <input type="hidden" name="recipe.uri" value="{{item.recipe.uri}}">
+                                <input type="hidden" name="recipe.uri" value="{{appRecipe[1]}}">
                                 <input type="hidden" name="recipe.label" value="{{item.recipe.label}}">
                                 <input type="hidden" name="recipe.image" value="{{item.recipe.image}}">          
                           </form>
@@ -38,17 +38,11 @@
                     <div class="recipe_type">
                         {%if item.owner == userId %}
                             <form class="form_display" action="/recipes/{{item.id}}?_method=DELETE" method="POST"> 
-                                <input type="submit" class="btn" id="mybtn_plus" value="- MyRecipes"> 
-                                <input type="hidden" name="recipe.uri" value="{{item.recipe.uri}}">
-                                <input type="hidden" name="recipe.label" value="{{item.recipe.label}}">
-                                <input type="hidden" name="recipe.image" value="{{item.recipe.image}}">          
+                                <input type="submit" class="btn" id="mybtn_plus" value="- MyRecipes">          
                             </form>
                         {% else %}
                             <form class="form_display" action="/recipes/{{appRecipeId[1]}}?q={{searchQ}}" method="POST"> 
-                                <input type="submit" class="btn" id="btn_plus" value="+ MyRecipes"> 
-                                <input type="hidden" name="recipe.uri" value="{{item.recipe.uri}}">
-                                <input type="hidden" name="recipe.label" value="{{item.recipe.label}}">
-                                <input type="hidden" name="recipe.image" value="{{item.recipe.image}}">          
+                                <input type="submit" class="btn" id="btn_plus" value="+ MyRecipes">    
                             </form>
                         {% endif %}
                     </div>

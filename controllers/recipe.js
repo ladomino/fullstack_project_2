@@ -53,7 +53,7 @@ router.get("/", (req, res) => {
 	// limiting number of ingredients
 	// &ingr=${maxIngr}&to=50
 	const requestUrl = `https://api.edamam.com/search?q=${searchQ}&app_id=${apiId}&app_key=${apiKey}&from=0&to=50`
-
+	const requestArticleUrl = "https://health.gov/myhealthfinder/api/v3/topicsearch.json?categoryId=healthy"
 
 	console.log("Search RequestUrl: ", requestUrl)
 
@@ -66,11 +66,21 @@ router.get("/", (req, res) => {
 	  .then((jsonData)=>{
 		const recipeList = jsonData.hits;
 
-		// TEST TO SHOW FETCH GETTING ONLY 10 ITEMS MAX
+		// TEST TO SHOW FETCH GETTING ONLY 10 ITEMS MAX FROM RECIPE API
 		//res.send(jsonData)
 		//
-		res.render('index.liquid', { recipes: recipeList, searchQ, loggedIn, username, userId })
-	  })
+		fetch(requestArticleUrl)
+		.then((responseArticleData)=>{
+		   return responseArticleData.json();
+		})
+		.then((jsonArticleData)=>{
+		   const articleList = jsonArticleData.Result.Resources.Resource;
+		   //console.log("Article array: ", articleList)
+		   console.log("First Article Title", articleList[0].Title)
+	   
+		   res.render('index.liquid', { recipes: recipeList, articles: articleList, searchQ, loggedIn, username, userId })
+		  })
+		})
 	  .catch((error)=>{
 		// If any error is sent bac, you will have access to it here.
 		console.log(error);

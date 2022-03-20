@@ -4,7 +4,8 @@
 <div class="container-lg">
 
 <!-- Recipes -->
-    <div class="recipe_list_container">
+<div class="recipe_list_container">
+    <div class="recipe_home_list_container">
         {% for item in recipes %}
             <div class="recipe_container">
                 {% assign appRecipeId = item.recipe.uri | split: "#recipe_" %}
@@ -31,6 +32,21 @@
             </div>
         {% endfor %}
     </div>
+
+    <div class="col" id="article_col">
+        <span class="recipe_comment_body">Articles</span>
+        <div class="recipe_list_container">
+            {% for article in articles %}
+            <div class="recipe_article_info">
+                <a href="{{ article.AccessibleVersion }}" style="color: #239F57">  
+                <span class="article_title_text">{{ article.Title }}</span>
+                </a>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+</div>
 </div>
 
 {% endblock %}

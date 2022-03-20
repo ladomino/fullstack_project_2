@@ -22,6 +22,9 @@ const fetch = (url) => import('node-fetch').then(({default: fetch}) => fetch(url
 const searchQ = "keto"
 const requestUrl = `https://api.edamam.com/search?q=${searchQ}&app_id=${apiId}&app_key=${apiKey}&from=0&to=50`
 
+const requestArticleUrl = "https://health.gov/myhealthfinder/api/v3/topicsearch.json?categoryId=healthy"
+
+
 //////////////////////////////
 // Middleware + App Object  //
 //////////////////////////////
@@ -56,8 +59,17 @@ app.get('/', (req, res) => {
 
 		// res.send(recipeList)
 		// console.log(recipeList)
-		  
-		res.render('index.liquid', { recipes: recipeList, searchQ, loggedIn, username, userId })
+		fetch(requestArticleUrl)
+	 	.then((responseArticleData)=>{
+			return responseArticleData.json();
+	 	})
+	 	.then((jsonArticleData)=>{
+			const articleList = jsonArticleData.Result.Resources.Resource;
+			//console.log("Article array: ", articleList)
+			console.log("First Article Title", articleList[0].Title)
+		
+			res.render('index.liquid', { recipes: recipeList, articles: articleList, searchQ, loggedIn, username, userId })
+		})
 	  })
 	  .catch((error)=>{
 		  // If any error is sent bac, you will have access to it here.

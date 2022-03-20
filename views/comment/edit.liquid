@@ -39,7 +39,7 @@
                     <form action="/comment/{{recipe.id}}/{{comment.id}}?_method=PATCH" method="POST">
                         <input type="text" class="form-control" id="recipe_form" name="title" value="{{- comment.title -}}">          
                         <br>
-                        <textarea id="recipe_comment_text" name="body" cols="27" rows="6" contenteditable="true">
+                        <textarea id="recipe_comment_text" name="body" cols="25" rows="6" contenteditable="true">
                         {{- comment.body -}}
                         </textarea>
                         <div class="recipe_button_info">

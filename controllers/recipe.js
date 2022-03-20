@@ -255,6 +255,30 @@ router.get('/:id', (req, res) => {
 	})
 })
 
+////////////////////////////////////////////////////////////
+// Show a MyRecipe
+//   requires a recipeId
+///////////////////////////////////////////////////////////
+router.get('/mine/:id', (req, res) => {
+	// we need to get the id
+	const recipeId = req.params.id
+
+	console.log("Show myRecipe")
+
+	// destructure user info from req.session
+	const { username, userId, loggedIn } = req.session
+
+	Recipe.findById(recipeId)
+		.then(recipe => {
+			console.log("show myRecipe: ", recipe)
+			res.render('recipes/show', { recipe: recipe.recipe, username, loggedIn, userId })
+		})
+		.catch((error) => {
+			res.redirect(`/error?error=${error}`)
+		})
+})
+
+
 /////////////////////////////////////////////////////////////////
 // Delete a recipe 
 // 	  Requires a recipe id to remove a recipe from the database.

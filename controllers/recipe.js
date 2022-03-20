@@ -164,7 +164,8 @@ router.post('/:id', (req, res) => {
 })
 
 ////////////////////////////////////////////////////////////
-// Not used
+// Edit a recipe 
+//   requires a recipeId
 // edit route -> GET that takes us to the edit form view
 ///////////////////////////////////////////////////////////
 router.get('/:id/edit', (req, res) => {
@@ -192,6 +193,10 @@ router.put('/:id', (req, res) => {
 	const recipeId = req.params.id
 
 	console.log("Update Body: ", req.body)
+
+	// Need to do something to get ingredientLines into correct
+	//  format to update the schema.
+	console.log('Req ingredientLines:', req.body.ingredientLines)
 
 	Recipe.findByIdAndUpdate(recipeId, req.body, { new: true })
 		.then(recipe => {

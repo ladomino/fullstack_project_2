@@ -3,15 +3,16 @@
 <div class="container-lg">
 
 <!-- Recipes -->
-    
-    <h5>MyRecipes</h5>
 
-    <form id="form" class="flex-container align-middle" action="/recipes/new">
-        <div class="input-group">
-            <input type="submit"  
+    <div class="recipe_heading_type">
+    <form id="form" class="form-display" action="/recipes/new">
+        <div class="input-group" style="justify-content:space-between;">
+        <h5>MyRecipes</h5>
+        <input type="submit"  
             class="btn btn-outline-primary" id="search_btn" value="+ New Recipe" />
         </div>
      </form>
+    </div>
 
     <div class="recipe_list_container">
         {% for item in recipes %}

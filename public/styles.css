@@ -47,7 +47,7 @@ body {
     flex-direction: column;
     margin: 5px;
     padding: 17px;
-    width: 400px;
+    width: 375px;
     border-radius: 10px;
     box-shadow: 1px 4px 10px 0 #5e2104f7;
     zoom: 100%;
@@ -72,14 +72,17 @@ body {
 }
 
 .recipe_type {
-    /* span */
   font-family: "Roboto", sans-serif;
   font-size: 14px;
-  color: #7e0404;
+}
+
+.recipe_heading_type {
+  margin-top: 10px;
+  font-family: "Roboto", sans-serif;
+  font-size: 14px;
 }
 
 .recipe_comment {
-  /* span */
 font-family: "Roboto", sans-serif;
 font-size: 16px;
 color: #7e0404;
@@ -87,14 +90,13 @@ margin-bottom: 8px;
 }
 
 .recipe_comment_text {
-  /* span */
+
 font-family: "Roboto", sans-serif;
 font-size: 14px;
 color: #7e0404;
 }
 
 .recipe_see_more {
-    /* span */
   font-family: "Roboto", sans-serif;
   font-size: 11px;
   font-weight: 600;

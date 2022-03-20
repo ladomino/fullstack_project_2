@@ -10,7 +10,9 @@
                 <h5>Ingredients</h5>
                 <ul>
                 {% for line in recipe.ingredientLines %}
+                    {% if line != "" %}
                     <li>{{line}}</li>
+                    {% endif %}
                 {% endfor %}
                 </ul>
                 <p>Makes {{recipe.yield}} servings</p>

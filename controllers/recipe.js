@@ -73,7 +73,12 @@ router.get("/", (req, res) => {
 		.then((jsonArticleData)=>{
 		   const articleList = jsonArticleData.Result.Resources.Resource;
 
-		   res.render('index.liquid', { recipes: recipeList, articles: articleList, searchQ, loggedIn, username, userId })
+		   let newArticleList = articleList.reduce ((x, currentValue) => {
+				x.push ({"Title": currentValue.Title, "AccessibleVersion": currentValue.AccessibleVersion});
+				return x;
+			}, []);
+
+		   res.render('index.liquid', { recipes: recipeList, articles: newArticleList, searchQ, loggedIn, username, userId })
 		  })
 		})
 	  .catch((error)=>{

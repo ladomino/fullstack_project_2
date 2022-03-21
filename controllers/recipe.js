@@ -158,7 +158,7 @@ router.post('/:id', (req, res) => {
 	//res.send(req.body)
 	Recipe.create(req.body)
 		.then(recipe => {
-			console.log('this was returned from create', recipe)
+			// console.log('this was returned from create', recipe)
 
 			res.redirect(`/recipes?q=${searchQuery.q}`)
 	})

@@ -61,26 +61,34 @@ based on their dietary preferences.  Users can save recipes they have tried, rat
 
 # Restful Routing API
 
-| METHOD | URL                   | FUNCTIONALITY           | VIEW                           |
-|--------|-----------------------|-------------------------|--------------------------------|
-| GET    | /                     | Home page               | render index.liquid            |
-| GET    | /                     | Search results          | render index.liquid            |
-| GET    | /:id                  | Show a recipe           | renders recipes/show.liquid    |
-| GET    | /mine                 | MyRecipes               | renders recipes/index.liquid   |
-| GET    | /new                  | New Recipe              | renders recipes/new.liquid     |
-| POST   | /new                  | Create Recipe           | redirect recipes/mine          |
-| POST   | /:id                  | Add to MyRecipes        | redirect recipes?q=searchQuery |
-| GET    | /:id/edit             | Edit a recipe           | render recipes/edit            |
-| PUT    | /:id                  | Update a recipe         | redirect recipes/mine          |
-| GET    | /mine/:id             | Show specific recipe    | renders recipes/show.liquid    |
-| DELETE | /:id                  | Delete a recipe         | redirect recipes/mine          |
-| GET    | /:commentId           | Show a recipes comments | renders comment/index.liquid   |
-| GET    | /:id/:commentId       | Edit a specific comment | render comment/edit.liquid     |
-| POST   | /:id                  | Create a comment        | redirect comment/recipeId      |
-| PATCH  | /:id/:commentId       | Update a comment        | redirect comment/recipeId      |
-| DELETE | /delete/:id/commentId | Delete a comment        | redirect comment/recipeId      |
-| GET    | /signup               | Sign up                 | render auth/signup.liquid      |
-| POST   | /signup               | Create user             | render auth/login.liquid       |
-| GET    | /login                | Sign in                 | render auth/login.liquid       |
-| POST   | /login                | Log in verification     | redirect /                     |
-| GET    | /logout               | Log out                 | redirect /                     |
+| METHOD | URL                           | FUNCTIONALITY           | VIEW                           |
+|--------|-------------------------------|-------------------------|--------------------------------|
+| GET    | /                             | Home page               | render index.liquid            |
+| GET    | /recipes                      | Search results          | render index.liquid            |
+| GET    | /recipes/:id                  | Show a recipe           | renders recipes/show.liquid    |
+| GET    | /recipes/mine                 | MyRecipes               | renders recipes/index.liquid   |
+| GET    | /recipes/new                  | New Recipe              | renders recipes/new.liquid     |
+| POST   | /recipes/new                  | Create Recipe           | redirect recipes/mine          |
+| POST   | /recipes/:id                  | Add to MyRecipes        | redirect recipes?q=searchQuery |
+| GET    | /recipes/:id/edit             | Edit a recipe           | render recipes/edit            |
+| PUT    | /recipes/:id                  | Update a recipe         | redirect recipes/mine          |
+| GET    | /recipes/mine/:id             | Show specific recipe    | renders recipes/show.liquid    |
+| DELETE | /recipes/:id                  | Delete a recipe         | redirect recipes/mine          |
+| GET    | /comment/:commentId           | Show a recipes comments | renders comment/index.liquid   |
+| GET    | /comment/:id/:commentId       | Edit a specific comment | render comment/edit.liquid     |
+| POST   | /comment/:id                  | Create a comment        | redirect comment/recipeId      |
+| PATCH  | /comment/:id/:commentId/      | Update a comment        | redirect comment/recipeId      |
+| DELETE | /comment/delete/:id/commentId | Delete a comment        | redirect comment/recipeId      |
+| GET    | /signup                       | Sign up                 | render auth/signup.liquid      |
+| POST   | /signup                       | Create user             | render auth/login.liquid       |
+| GET    | /login                        | Sign in                 | render auth/login.liquid       |
+| POST   | /login                        | Log in verification     | redirect /                     |
+| GET    | /logout                       | Log out                 | redirect /                     |
+
+# Home Page
+
+![DeployedHome](assets/HealthyRecipeMe.png)
+
+# Edit Recipe/Comments
+
+![EditAndComments](assets/EditRecipeAndComments.png)

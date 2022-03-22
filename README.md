@@ -7,33 +7,36 @@ based on their dietary preferences.  Users can save recipes they have tried, rat
 # MVP Goals
 -Create a profile - signup/login
 -Search for recipes based off of Preferences
--Save the recipes
--View the recipes
--Add Comments to the recipes
--View Other recipes 
--Add Other recipes
--View Recommended Products
--Add Recommended Products
--Delete your recipes
--Delete your recommendations
+-Save your MyRecipes
+-View the search recipes
+-View your MyRecipes
+-Add Comments to MyRecipes
+-Edit Comments to the MyRecipes
+-Add Other MyRecipes
+-Edit your MyRecipes
+-View Recommended Articles
+-Delete your MyRecipes
+-Delete your Comments
 
 # Stretch Goals
 - Allowing Users to add more specific nuturitional information or calorie searching
 - Allowing Users to add Progress fitness/weight tracking to their profile
 - Allowing Users to have a User Blog to track general notes for themselves.
+- Allowing Users to associate articles with a given MyRecipe
+- Allowing Users to view Nutritional content for ingredient
 
 # User Stories
 - As a user, I want to be able to create a personalized account.
-- As a user, I want to be able to track in my personalized account specific recipes according to my dietary preferences.
-- As a user, I want to be able to track and save specific products and ingredients.
+- As a user, I want to be able to track in my recipes according to my dietary preferences.
+- As a user, I want to be able to track and save specific recipes and ingredients.
 - As a user, I want to know which recipes I have tried and liked.
-- As a user, I want to save and comment on recipes that I have tried
-- As a user, I want to be able to see other users' comments of recipes
+- As a user, I want to save and comment on my recipes that I have tried
+- As a user, I want to edit and customize recipes and pictures.
  -As a user, I want to be able to remove any recipes I did not like.
 
 #APIs
 [Edamam](https://developer.edamam.com/edamam-docs-recipe-api)
-[OpenFood](https://world.openfoodfacts.org/data)
+[HealthFinder](https://health.gov/our-work/national-health-initiatives/health-literacy/consumer-health-content/free-web-content/apis-developers/how-use-api)
 [Bootstrap](https://getbootstrap.com/)
 
 # Wire Frames
@@ -55,3 +58,15 @@ based on their dietary preferences.  Users can save recipes they have tried, rat
 
 # ERD
 ![ERD](assets/FullStack-Project2.jpg)
+
+# Restful Routing API
+
+| METHOD | URL | FUNCTIONALITY | VIEW |
+| GET | / | 
+| GET | /recipes |
+| GET | /mine |
+| GET | /new |
+| POST | /new |
+| POST | /:id |
+| GET | /:id/edit |
+| PUT | 

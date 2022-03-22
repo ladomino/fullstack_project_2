@@ -61,12 +61,26 @@ based on their dietary preferences.  Users can save recipes they have tried, rat
 
 # Restful Routing API
 
-| METHOD | URL | FUNCTIONALITY | VIEW |
-| GET | / | 
-| GET | /recipes |
-| GET | /mine |
-| GET | /new |
-| POST | /new |
-| POST | /:id |
-| GET | /:id/edit |
-| PUT | 
+| METHOD | URL                    | FUNCTIONALITY           | VIEW                           |
+|--------|------------------------|-------------------------|--------------------------------|
+| GET    | /                      | Home page               | render index.liquid            |
+| GET    | /                      | Search results          | render index.liquid            |
+| GET    | /:id                   | Show a recipe           | renders recipes/show.liquid    |
+| GET    | /mine                  | MyRecipes               | renders recipes/index.liquid   |
+| GET    | /new                   | New Recipe              | renders recipes/new.liquid     |
+| POST   | /new                   | Create Recipe           | redirect recipes/mine          |
+| POST   | /:id                   | Add to MyRecipes        | redirect recipes?q=searchQuery |
+| GET    | /:id/edit              | Edit a recipe           | render recipes/edit            |
+| PUT    | /:id                   | Update a recipe         | redirect recipes/mine          |
+| GET    | /mine/:id              | Show specific recipe    | renders recipes/show.liquid    |
+| DELETE | /:id                   | Delete a recipe         | redirect recipes/mine          |
+| GET    | /:commentId            | Show a recipes comments | renders comment/index.liquid   |
+| GET    | /:id/:commentId        | Edit a specific comment | render comment/edit.liquid     |
+| POST   | /:id                   | Create a comment        | redirect comment/recipeId      |
+| PATCH  | /:id/:commentId        | Update a comment        | redirect comment/recipeId      |
+| DELETE | /delete/:id:/commentId | Delete a comment        | redirect comment/recipeId      |
+| GET    | /signup                | Sign up                 | render auth/signup.liquid      |
+| POST   | /signup                | Create user             | render auth/login.liquid       |
+| GET    | /login                 | Sign in                 | render auth/login.liquid       |
+| POST   | /login                 | Log in verification     | redirect /                     |
+| GET    | /logout                | Log out                 | redirect /                     |

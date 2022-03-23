@@ -92,3 +92,52 @@ based on their dietary preferences.  Users can save recipes they have tried, rat
 # Edit Recipe/Comments
 
 ![EditAndComments](assets/EditRecipeAndComments.png)
+
+# SETTING UP INSTRUCTIONS
+
+Setting up
+
+You'll be using the Edamam Recipe Search API with two different API 
+calls documented here:
+[EDAMAM](https://developer.edamam.com/edamam-docs-recipe-api)
+
+SignUp for a free Recipe search API KEY and USERID on the Edamam Website.
+The HealthFinder website has no API KEY necessary to use.
+
+-Fork and clone this repo.
+-Copy the EDAMAM API KEY and USERID and keep track of it in your .env
+file.
+-Your .env file should be setup as follows for local testing:
+
+`# database url is where our local db lives
+DATABASE_URL=mongodb://127.0.0.1:27017/healthyme
+
+# port is which local host to run this on
+PORT=3000
+
+SECRET=randomstring
+
+# setup for API
+EDAMAM_API_ID=id
+EDAMAM_API_KEY=key`
+
+-Test the url in browser to verify that your key and id works.
+`https://api.edamam.com/search?q=${searchQ}&app_id=${apiId}&app_key=${apiKey}`
+
+
+-cd into your cloned directory
+-make sure you have mongodb installed and you have a working 
+ mongodb server that you can start via brew services start mongodb-community@4.4 in a terminal window.
+
+-To get everything setup propertly for development
+`npm init or npm init -y` for a faster start up.  This will
+allow you to customize the server name if you wish.
+
+-Install the dependencies needed to run the server
+`npm install`
+
+-Once your env file has been modified, all node modules are installed,
+ your mongodb server is up and running - you can start your server on your
+ configured PORT (from your env file)
+
+`npm start (will start your server)`

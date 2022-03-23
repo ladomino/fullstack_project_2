@@ -109,29 +109,34 @@ The HealthFinder website has no API KEY necessary to use.
 file.
 -Your .env file should be setup as follows for local testing:
 
-`# database url is where our local db lives
+
 DATABASE_URL=mongodb://127.0.0.1:27017/healthyme
-
-# port is which local host to run this on
 PORT=3000
-
 SECRET=randomstring
-
-# setup for API
 EDAMAM_API_ID=id
-EDAMAM_API_KEY=key`
+EDAMAM_API_KEY=key
 
--Test the url in browser to verify that your key and id works.
+
+DATABASE_URL is defining mongodb to run on your localhost and create
+ the database named healthyme
+PORT 3000 is your local port for your server
+SECRET is a random string used for user encrypting
+EDAMAM_API_ID and EDAMAM_API_KEY are from the EDAMAM API signup
+
+-Test the url in your browser to verify that your key and id works.
 `https://api.edamam.com/search?q=${searchQ}&app_id=${apiId}&app_key=${apiKey}`
 
+Replace the curly brace notation with your data
 
 -cd into your cloned directory
--make sure you have mongodb installed and you have a working 
- mongodb server that you can start via brew services start mongodb-community@4.4 in a terminal window.
+-make sure you have mongodb is installed and you have a working 
+ mongodb server that you can start via
+brew services start mongodb-community@4.4 in a terminal window.
 
 -To get everything setup propertly for development
 `npm init or npm init -y` for a faster start up.  This will
-allow you to customize the server name if you wish.
+allow you to customize the server name if you wish.  At this time
+you can customize your package.json file to how you prefer to work.
 
 -Install the dependencies needed to run the server
 `npm install`
@@ -141,3 +146,6 @@ allow you to customize the server name if you wish.
  configured PORT (from your env file)
 
 `npm start (will start your server)`
+
+Now you can go to your browser and enter https:/localhost:3000/ and the
+home page for HealthierMe will appear.
